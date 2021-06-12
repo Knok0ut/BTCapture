@@ -1,0 +1,1 @@
+pyuic6 ui/mainwindow.ui -o ui/mainwindow.py
