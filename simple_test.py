@@ -1,12 +1,10 @@
 import sys
 import pyshark
 from pyshark.packet.packet import Packet
-from pyshark.packet.layer import Layer
 from ui import mainwindow
-from PyQt6 import QtCore, QtWidgets, QtGui
 from PyQt6.QtWidgets import QApplication, QMainWindow, QHeaderView, QTableWidgetItem, QTreeWidgetItem
-from PyQt6.QtCore import QThread, pyqtSignal, QThreadPool
-from util.HexView import HexView
+from PyQt6.QtCore import QThread, pyqtSignal
+from ui.HexView import HexView
 import time
 
 raw_dict = dict()
@@ -18,14 +16,21 @@ class Capture(QThread):
     def __init__(self):
         super(Capture, self).__init__()
         self.cap = None
+        self.filter = None
 
     def run(self):
-        self.cap = pyshark.LiveCapture(interface="WLAN", use_json=True, include_raw=True, display_filter="ip"
-                                       , output_file="./out.pcap")
+        if not self.filter:
+            self.cap = pyshark.LiveCapture(interface="WLAN", use_json=True, include_raw=True,
+                                           display_filter="bittorrent")
+        else:
+            self.cap = pyshark.LiveCapture(interface="WLAN", use_json=True, include_raw=True, display_filter=self.filter
+                                           )
         self.cap.apply_on_packets(self.send_signal, timeout=300)
 
     def stop(self):
         # self.quit()
+        if self.cap:
+            self.cap.close()
         self.terminate()
         self.wait()
 
@@ -33,8 +38,8 @@ class Capture(QThread):
         # print("I'm not terminated")
         self.signal.emit(pkt)
 
-# class SaveDict(QThread):
 
+# class SaveDict(QThread):
 
 
 class Window(QMainWindow):
@@ -45,6 +50,9 @@ class Window(QMainWindow):
         self.ui.setupUi(self)
         self.hex_view = HexView()
         self.hex_view.setParent(self.ui.splitter)
+        self.filter = self.ui.lineEdit
+        self.go_btn = self.ui.goBtn
+        self.go_btn.clicked.connect(self.do_filter)
         self.ui.tableWidget.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
         self.table = self.ui.tableWidget
         self.tree = self.ui.treeWidget
@@ -57,9 +65,11 @@ class Window(QMainWindow):
         self.ui.actionstart.triggered.connect(self.start)
         self.ui.actionstop.triggered.connect(self.stop)
         self.ui.actionstop.setEnabled(False)
+        self.ui.actionprettify.triggered.connect(self.show_pretty_detail)
         # self.ui.actionstop.setEnabled(False)
         self.is_running = False
         self.time = None
+        self.current_pkt = None
 
     def table_init(self):
         self.table.setRowCount(0)
@@ -71,6 +81,7 @@ class Window(QMainWindow):
 
     def start(self):
         self.tree.clear()
+        self.current_pkt = None
         if self.pkt_dict:
             del self.pkt_dict
         self.pkt_dict = dict()
@@ -104,13 +115,20 @@ class Window(QMainWindow):
         self.pkt_dict[pkt.number] = pkt
         self.add_row(
             [pkt.number, "{:.6f}".format(float(pkt.sniff_timestamp) - self.time), pkt.ip.src, pkt.ip.dst,
-             pkt.highest_layer, pkt.length, pkt.frame_info])
+             pkt.highest_layer.split("_RAW")[0], pkt.length, pkt.frame_info])
+
+    def show_pretty_detail(self):
+        if self.current_pkt:
+            c = pyshark.InMemCapture()
+            pkt = c.parse_packet(self.current_pkt.get_raw_packet())
+            self.show_pkt_tree(pkt)
 
     def show_detail(self, row, column):
         item = self.table.item(row, 0)
         # print(item.text())
         pkt: Packet = self.pkt_dict.get(int(item.text()))
-        pkt.pretty_print()
+        self.current_pkt = pkt
+        # pkt.frame_info
         # print(pkt)
         if not pkt:
             print("packet map error")
@@ -124,6 +142,8 @@ class Window(QMainWindow):
         self.tree.clear()
         layers: list = pkt.layers
         for l in layers:
+            if str(l.layer_name).endswith("_raw"):
+                continue
             if l.layer_name == l.DATA_LAYER:
                 b = QTreeWidgetItem(self.tree)
                 b.setText(0, "DATA")
@@ -132,8 +152,19 @@ class Window(QMainWindow):
             b.setText(0, l.layer_name)
             for field_line in l._get_all_field_lines():
                 field_line = field_line.strip()
+                if field_line.split(":")[0].endswith("_raw"):
+                    continue
                 child = QTreeWidgetItem(b)
                 child.setText(0, field_line)
+
+    def do_filter(self):
+        if self.capture and self.capture.isRunning():
+            self.capture.stop()
+        if not self.capture:
+            self.capture = Capture()
+        f = self.filter.text()
+        self.capture.filter = f
+        self.start()
 
 
 if __name__ == "__main__":

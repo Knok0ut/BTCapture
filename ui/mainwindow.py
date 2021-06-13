@@ -1,4 +1,4 @@
-# Form implementation generated from reading ui file 'ui/mainwindow.ui'
+# Form implementation generated from reading ui file 'ui/test.ui'
 #
 # Created by: PyQt6 UI code generator 6.1.0
 #
@@ -12,13 +12,29 @@ from PyQt6 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(897, 676)
+        MainWindow.resize(907, 676)
         MainWindow.setMouseTracking(True)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.gridLayout = QtWidgets.QGridLayout(self.centralwidget)
         self.gridLayout.setObjectName("gridLayout")
+        self.lineEdit = QtWidgets.QLineEdit(self.centralwidget)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Fixed)
+        sizePolicy.setHorizontalStretch(5)
+        sizePolicy.setVerticalStretch(1)
+        sizePolicy.setHeightForWidth(self.lineEdit.sizePolicy().hasHeightForWidth())
+        self.lineEdit.setSizePolicy(sizePolicy)
+        self.lineEdit.setObjectName("lineEdit")
+        self.gridLayout.addWidget(self.lineEdit, 0, 0, 1, 5)
+        self.goBtn = QtWidgets.QPushButton(self.centralwidget)
+        self.goBtn.setObjectName("goBtn")
+        self.gridLayout.addWidget(self.goBtn, 0, 5, 1, 1)
         self.splitter = QtWidgets.QSplitter(self.centralwidget)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Expanding)
+        sizePolicy.setHorizontalStretch(5)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.splitter.sizePolicy().hasHeightForWidth())
+        self.splitter.setSizePolicy(sizePolicy)
         self.splitter.setOrientation(QtCore.Qt.Orientation.Vertical)
         self.splitter.setObjectName("splitter")
         self.tableWidget = QtWidgets.QTableWidget(self.splitter)
@@ -50,10 +66,10 @@ class Ui_MainWindow(object):
         self.treeWidget.header().setCascadingSectionResizes(True)
         self.treeWidget.header().setSortIndicatorShown(False)
         self.treeWidget.header().setStretchLastSection(True)
-        self.gridLayout.addWidget(self.splitter, 0, 0, 1, 1)
+        self.gridLayout.addWidget(self.splitter, 1, 0, 1, 6)
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 897, 26))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 907, 26))
         self.menubar.setObjectName("menubar")
         self.menu = QtWidgets.QMenu(self.menubar)
         self.menu.setObjectName("menu")
@@ -65,8 +81,11 @@ class Ui_MainWindow(object):
         self.actionstart.setObjectName("actionstart")
         self.actionstop = QtGui.QAction(MainWindow)
         self.actionstop.setObjectName("actionstop")
+        self.actionprettify = QtGui.QAction(MainWindow)
+        self.actionprettify.setObjectName("actionprettify")
         self.menu.addAction(self.actionstart)
         self.menu.addAction(self.actionstop)
+        self.menu.addAction(self.actionprettify)
         self.menubar.addAction(self.menu.menuAction())
 
         self.retranslateUi(MainWindow)
@@ -75,6 +94,7 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        self.goBtn.setText(_translate("MainWindow", "go"))
         self.tableWidget.setSortingEnabled(True)
         item = self.tableWidget.horizontalHeaderItem(0)
         item.setText(_translate("MainWindow", "No."))
@@ -94,3 +114,4 @@ class Ui_MainWindow(object):
         self.menu.setTitle(_translate("MainWindow", "操作"))
         self.actionstart.setText(_translate("MainWindow", "start"))
         self.actionstop.setText(_translate("MainWindow", "stop"))
+        self.actionprettify.setText(_translate("MainWindow", "prettify"))
