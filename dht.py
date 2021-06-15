@@ -48,11 +48,14 @@ def handle_dht_message(dht_message: dict):
         if q_type == b'find_node':
             a = dht_message[b'a']
             print('Find_node:\nid:' + a[b'id'].hex() + '\ntarget:' + a[b'target'].hex())
+            return 'Request: find_node'
         elif q_type == b'get_peers':
             a = dht_message[b'a']
             print('Get_peers:\nid:' + a[b'id'].hex() + '\ninfo_hash:' + a[b'info_hash'].hex())
+            return 'Request: get_peers'
         else:
             print(q_type.decode().capitalize())
+            return 'Request: %s' % q_type.decode()
             #ping或announce_peer，暂不处理
     else:
         r = dht_message[b'r']
@@ -65,12 +68,14 @@ def handle_dht_message(dht_message: dict):
         if b'values' in r.keys():
             peers_num = handle_peers(r[b'values'])
         # print(dht_message)
-        print('Totol:%d nodes, %d peers'%(nodes_num, peers_num))
+        print('Totol:%d node(s), %d peer(s)'%(nodes_num, peers_num))
+        return 'Response: %d node(s), %d peer(s)' % (nodes_num, peers_num)
     print()
 
 def print_dht_info(pkt: Packet):
     if hasattr(pkt, 'icmp'):
         print(pkt.icmp)
+        return 'ICMP'
     else:
         print('DHT')
         if hasattr(pkt, 'ip'):
@@ -78,7 +83,7 @@ def print_dht_info(pkt: Packet):
         elif hasattr(pkt, 'ipv6'):
             print(pkt.ipv6.src + ':' + pkt.udp.srcport + '->' + pkt.ipv6.dst + ':' + pkt.udp.dstport)
         try:
-            handle_dht_message(bdecode(bytes.fromhex(pkt.udp.payload.raw_value)))
+            return handle_dht_message(bdecode(bytes.fromhex(pkt.udp.payload.raw_value)))
         except KeyError as e1:
             print(str(e1))
 

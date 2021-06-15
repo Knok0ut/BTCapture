@@ -9,6 +9,7 @@ from ui.HexView import HexView
 import time
 from dht import *
 from tracker import *
+from bittorrent import *
 
 
 class Capture(QThread):
@@ -147,17 +148,35 @@ class Window(QMainWindow):
         # print(pkt)
         self.pkt_dict[int(pkt.number)] = pkt
         if hasattr(pkt, "http"):
-            print_tracker_info(pkt)
+            info = print_tracker_info(pkt)
         if hasattr(pkt, "bt-dht"):
-            print_dht_info(pkt)
+            info = print_dht_info(pkt)
+        if hasattr(pkt, "bittorrent"):
+            info = print_bittorrent_info(pkt)
         if hasattr(pkt, "ip"):
-            self.add_row(
+            if hasattr(pkt, "http") or hasattr(pkt, "bt-dht") or hasattr(pkt, "bittorrent"):
+                if info and info != "ICMP":
+                    self.add_row(
+                        [pkt.number, "{:.6f}".format(float(pkt.sniff_timestamp) - self.time), pkt.ip.src, pkt.ip.dst,
+                         pkt.highest_layer.split("_RAW")[0], pkt.length, info])
+                else:
+                    pass
+            else:
+                self.add_row(
                 [pkt.number, "{:.6f}".format(float(pkt.sniff_timestamp) - self.time), pkt.ip.src, pkt.ip.dst,
                  pkt.highest_layer.split("_RAW")[0], pkt.length, pkt.frame_info])
         elif hasattr(pkt, "ipv6"):
-            self.add_row(
-                [pkt.number, "{:.6f}".format(float(pkt.sniff_timestamp) - self.time), pkt.ipv6.src, pkt.ipv6.dst,
-                 pkt.highest_layer.split("_RAW")[0], pkt.length, pkt.frame_info])
+            if hasattr(pkt, "http") or hasattr(pkt, "bt-dht") or hasattr(pkt, "bittorrent"):
+                if info and info != "ICMP":
+                    self.add_row(
+                        [pkt.number, "{:.6f}".format(float(pkt.sniff_timestamp) - self.time), pkt.ipv6.src, pkt.ipv6.dst,
+                         pkt.highest_layer.split("_RAW")[0], pkt.length, info])
+                else:
+                    pass
+            else:
+                self.add_row(
+                    [pkt.number, "{:.6f}".format(float(pkt.sniff_timestamp) - self.time), pkt.ipv6.src, pkt.ipv6.dst,
+                     pkt.highest_layer.split("_RAW")[0], pkt.length, pkt.frame_info])
         else:
             print("no attribute ip/ipv6")
 

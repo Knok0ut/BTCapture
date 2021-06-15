@@ -5,7 +5,7 @@ import gzip
 
 ip_dst = set()
 tracker_ipport = dict()
-peerlist = []
+# peerlist = []
 
 def bytes2ipport(bytes):
     port = int.from_bytes(bytes[4:6], byteorder='big')
@@ -35,10 +35,14 @@ def print_tracker_info(pkt: Packet):
                         length = int(pkt.http.content_length)
                         temp = bdecode((bytes.fromhex(pkt.tcp.payload.raw_value))[-length:])
                 except BTFailure as e:
-                    print(pkt)
-                    print()
-                    return
+                    if hasattr(pkt.http, 'content-type') and str(getattr(pkt.http, 'content-type')) == 'application/octet-stream':
+                        temp = bdecode((bytes.fromhex(pkt.tcp.payload.raw_value))[-length:-1])
+                    else:
+                        print(pkt)
+                        print()
+                        return
                 print(temp)
+                peerlist = []
                 if b'peers' in temp.keys():
                     temp1 = temp[b'peers']
                     if len(temp1) > 0:
@@ -52,6 +56,7 @@ def print_tracker_info(pkt: Packet):
                             print(bytes2ipport(temp1[(i * 6):(i * 6 + 6)]))
                             peerlist.append(bytes2ipport(temp1[(i * 6):(i * 6 + 6)]))
                 print()
+                return str(temp) + str(peerlist)
 
             elif hasattr(pkt, 'ip') and pkt.ip.src in ip_dst:
                 # ip_dst.remove(pkt.ip.src)
@@ -68,13 +73,18 @@ def print_tracker_info(pkt: Packet):
                         length = int(pkt.http.content_length)
                         temp = bdecode((bytes.fromhex(pkt.tcp.payload.raw_value))[-length:])
                 except BTFailure as e:
-                    print(pkt)
-                    print()
-                    return
+                    if hasattr(pkt.http, 'content-type') and str(
+                            getattr(pkt.http, 'content-type')) == 'application/octet-stream':
+                        temp = bdecode((bytes.fromhex(pkt.tcp.payload.raw_value))[-length:-1])
+                    else:
+                        print(pkt)
+                        print()
+                        return
                 # else:
                 #     print('bug')
                 #     print(pkt.http.file_data)
                 print(temp)
+                peerlist = []
                 if b'peers' in temp.keys():
                     temp1 = temp[b'peers']
                     if len(temp1) > 0:
@@ -88,6 +98,7 @@ def print_tracker_info(pkt: Packet):
                             print(bytes2ipport(temp1[(i * 6):(i * 6 + 6)]))
                             peerlist.append(bytes2ipport(temp1[(i * 6):(i * 6 + 6)]))
                 print()
+                return str(temp) + str(peerlist)
     else:
         if hasattr(pkt.http, 'request_uri') and ((
                 'announce' in pkt.http.request_uri or 'scrape' in pkt.http.request_uri)):
@@ -109,6 +120,8 @@ def print_tracker_info(pkt: Packet):
                     tracker_ipport[(pkt.ip.dst, pkt.tcp.dstport)] = tracker_ipport[(pkt.ip.dst, pkt.tcp.dstport)] + 1
                 else:
                     tracker_ipport[(pkt.ip.dst, pkt.tcp.dstport)] = 1
+            return pkt.http.request_uri
+
 
 if __name__ == '__main__':
     cap = pyshark.LiveCapture(interface='WLAN', display_filter='http')
