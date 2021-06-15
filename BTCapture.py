@@ -7,6 +7,8 @@ from PyQt6.QtCore import QThread, pyqtSignal, Qt
 from PyQt6.QtGui import QColor, QPalette
 from ui.HexView import HexView
 import time
+from dht import *
+from tracker import *
 
 
 class Capture(QThread):
@@ -15,15 +17,17 @@ class Capture(QThread):
     def __init__(self):
         super(Capture, self).__init__()
         self.cap = None
-        self.filter = "bittorrent"
+        self.filter = "http or bt-dht or bittorrent"
 
     def run(self):
-        print(self.filter)
+        if self.filter:
+            print("current filter: " + str(self.filter) + '\n')
         if not self.filter:
             # self.cap = pyshark.LiveCapture(interface="WLAN", use_json=True, include_raw=True,
             #                                display_filter="bittorrent")
             self.cap = pyshark.LiveCapture(interface="WLAN",
-                                           display_filter="bittorrent")
+                                           display_filter="http or bt-dht or bittorrent",
+                                           decode_as={'udp.port == 51934': 'bt-dht'})
         else:
             # self.cap = pyshark.LiveCapture(interface="WLAN", use_json=True, include_raw=True, display_filter=self.filter
             #                                )
@@ -142,6 +146,10 @@ class Window(QMainWindow):
         # print(pkt)
         # print(pkt)
         self.pkt_dict[int(pkt.number)] = pkt
+        if hasattr(pkt, "http"):
+            print_tracker_info(pkt)
+        if hasattr(pkt, "bt-dht"):
+            print_dht_info(pkt)
         if hasattr(pkt, "ip"):
             self.add_row(
                 [pkt.number, "{:.6f}".format(float(pkt.sniff_timestamp) - self.time), pkt.ip.src, pkt.ip.dst,
