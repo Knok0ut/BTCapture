@@ -19,7 +19,7 @@ def print_bittorrent_info(pkt: Packet):
                         peer_id = str(layer.peer_id).replace(':', '')
                         print('info hash:%s\npeer id:%s' % (info_hash, peer_id))
                     except AttributeError as e:
-                        print('bug: ' + str(e))
+                        # print('bug: ' + str(e))
                         return
     print(info)
     print()

@@ -47,14 +47,14 @@ def handle_dht_message(dht_message: dict):
         q_type = dht_message[b'q']
         if q_type == b'find_node':
             a = dht_message[b'a']
-            print('Find_node:\nid:' + a[b'id'].hex() + '\ntarget:' + a[b'target'].hex())
+            print('Find_node:\nid:' + a[b'id'].hex() + '\ntarget:' + a[b'target'].hex() + '\n')
             return 'Request: find_node'
         elif q_type == b'get_peers':
             a = dht_message[b'a']
-            print('Get_peers:\nid:' + a[b'id'].hex() + '\ninfo_hash:' + a[b'info_hash'].hex())
+            print('Get_peers:\nid:' + a[b'id'].hex() + '\ninfo_hash:' + a[b'info_hash'].hex() + '\n')
             return 'Request: get_peers'
         else:
-            print(q_type.decode().capitalize())
+            print(q_type.decode().capitalize() + '\n')
             return 'Request: %s' % q_type.decode()
             #ping或announce_peer，暂不处理
     else:
@@ -68,9 +68,8 @@ def handle_dht_message(dht_message: dict):
         if b'values' in r.keys():
             peers_num = handle_peers(r[b'values'])
         # print(dht_message)
-        print('Totol:%d node(s), %d peer(s)'%(nodes_num, peers_num))
+        print('Totol:%d node(s), %d peer(s)\n'%(nodes_num, peers_num))
         return 'Response: %d node(s), %d peer(s)' % (nodes_num, peers_num)
-    print()
 
 def print_dht_info(pkt: Packet):
     if hasattr(pkt, 'icmp'):
