@@ -18,6 +18,9 @@ client = pymongo.MongoClient('mongodb://localhost:27017')
 db = client["BTCapture"]
 c_set = db["PacketDict"]
 fs = gridfs.GridFS(db, "PacketDict")
+from dht import *
+from tracker import *
+from bittorrent import *
 
 
 class Capture(QThread):
@@ -63,6 +66,9 @@ class Capture(QThread):
 class Window(QMainWindow):
     def __init__(self):
         super(Window, self).__init__()
+        self.trackeranalyse = None
+        self.dhtanalyse = None
+        self.bittorrentanalyse = None
         self.pkt_dict = dict()
         self.ui = MainWindow.Ui_MainWindow()
         self.ui.setupUi(self)
@@ -130,6 +136,9 @@ class Window(QMainWindow):
         self.tree.setHeaderHidden(True)
 
     def start(self):
+        self.trackeranalyse = TrackerAnalyse()
+        self.dhtanalyse = DHTAnalyse()
+        self.bittorrentanalyse = BittorrentAnalyse()
         self.clear_all_info()
         self.current_pkt = None
         if self.pkt_dict:
@@ -168,11 +177,11 @@ class Window(QMainWindow):
     def deal_with_pkt(self, pkt: Packet):
         self.pkt_dict[int(pkt.number)] = pkt
         if hasattr(pkt, "http"):
-            info = print_tracker_info(pkt)
+            info = print_tracker_info(pkt, self.trackeranalyse)
         if hasattr(pkt, "bt-dht"):
-            info = print_dht_info(pkt)
+            info = print_dht_info(pkt, self.dhtanalyse)
         if hasattr(pkt, "bittorrent"):
-            info = print_bittorrent_info(pkt)
+            info = print_bittorrent_info(pkt, self.bittorrentanalyse)
         if hasattr(pkt, "ip"):
             if hasattr(pkt, "http") or hasattr(pkt, "bt-dht") or hasattr(pkt, "bittorrent"):
                 if info and info != "ICMP":
