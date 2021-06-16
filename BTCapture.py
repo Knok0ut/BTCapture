@@ -13,11 +13,14 @@ import pickle
 from util.dht import *
 from util.tracker import *
 from util.bittorrent import *
+from util.Log import getlogger
 
 client = pymongo.MongoClient('mongodb://localhost:27017')
 db = client["BTCapture"]
 c_set = db["PacketDict"]
 fs = gridfs.GridFS(db, "PacketDict")
+logger = getlogger()
+logger.info("app opened")
 
 
 class Capture(QThread):
@@ -35,7 +38,7 @@ class Capture(QThread):
             #                                display_filter="bittorrent")
             self.cap = pyshark.LiveCapture(interface="WLAN", display_filter="bittorrent")
         if self.filter:
-            print("current filter: " + str(self.filter) + '\n')
+            logger.debug("current filter: " + str(self.filter))
         if not self.filter:
             # self.cap = pyshark.LiveCapture(interface="WLAN", use_json=True, include_raw=True,
             #                                display_filter="bittorrent")
@@ -75,7 +78,6 @@ class Window(QMainWindow):
         self.ui.tableWidget.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
         self.table = self.ui.tableWidget
         self.tree = self.ui.treeWidget
-        # self.text = self.ui.textBrowser
         self.menu = self.ui.menu
         self.capture_init()
         self.table_init()
@@ -144,6 +146,7 @@ class Window(QMainWindow):
         self.ui.actionsaveToDB.setEnabled(False)
         self.ui.actionrestoreFromDB.setEnabled(False)
         self.ui.actionclear.setEnabled(False)
+        logger.info("capture started")
 
     def stop(self):
         if self.capture.isRunning():
@@ -155,6 +158,7 @@ class Window(QMainWindow):
         self.ui.actionsaveToDB.setEnabled(True)
         self.ui.actionrestoreFromDB.setEnabled(True)
         self.ui.actionclear.setEnabled(True)
+        logger.info("capture stopped")
 
     def add_row(self, ls: list):
         row_cnt = self.table.rowCount()
@@ -214,8 +218,8 @@ class Window(QMainWindow):
         name = self.save_dialog.ui.lineEdit.text()
         name = name.strip()
         if name == "":
-            self.warn("输入为空", self.save_dialog)
             name = str(datetime.datetime.now()).replace(" ", ":").replace(".", ":")
+            self.info(f"输入为空,使用默认名称: {name}", self.save_dialog)
         if fs.exists(name.strip()):
             self.warn("命名冲突，该存档已经存在", self.save_dialog)
             return
@@ -223,6 +227,7 @@ class Window(QMainWindow):
         fs.put(data, _id=name, filename=name)
         self.save_dialog.close()
         self.info("保存成功")
+        logger.info(f"save current packets to data base, document name: {name}")
 
     def restore_from_db(self):
         self.restore_dialog = QDialog()
@@ -255,6 +260,7 @@ class Window(QMainWindow):
         self.ui.actionrestoreFromDB.setEnabled(True)
         self.ui.actionclear.setEnabled(True)
         self.ui.actionsaveToDB.setEnabled(True)
+        logger.info(f"restore packets from data base, document name: {name}")
 
     def clear_all_info(self):
         self.pkt_dict = dict()
@@ -277,7 +283,7 @@ class Window(QMainWindow):
         pkt: Packet = self.pkt_dict.get(int(item.text()))
         self.current_pkt = pkt
         if not pkt:
-            print("packet map error")
+            logger.error("packet map error")
             return
         # c = pyshark.InMemCapture()
         # tmp_pkt = c.parse_packet(pkt.get_raw_packet())
@@ -292,15 +298,9 @@ class Window(QMainWindow):
             if str(l.layer_name).endswith("_raw"):
                 continue
             if l.layer_name == l.DATA_LAYER:
-                if self.capture.filter and "bittorrent" in self.capture.filter.lower() and hasattr(pkt,
-                                                                                                   "data") and hasattr(
-                    pkt.data, "data"):
-                    print("data:  ", pkt.data.data)
-                    break
-                else:
-                    b = QTreeWidgetItem(self.tree)
-                    b.setText(0, "DATA")
-                    break
+                b = QTreeWidgetItem(self.tree)
+                b.setText(0, "DATA")
+                break
             b = QTreeWidgetItem(self.tree)
             b.setText(0, l.layer_name)
             for field_line in l._get_all_field_lines():
@@ -316,6 +316,7 @@ class Window(QMainWindow):
         if not self.capture:
             self.capture = Capture()
         f = self.filter.text()
+        logger.info(f"set filter to: {f}")
         self.capture.filter = f
         self.start()
 
@@ -330,9 +331,10 @@ class Window(QMainWindow):
             QMessageBox.information(self, title, msg)
         else:
             QMessageBox.information(parent, title, msg)
-    # def info(self,msg: str):
-    #     msg_box = QMessageBox(QMessageBox.Warning, 'Warning', msg)
-    #     msg_box.exec_()
+
+    def closeEvent(self, event):
+        logger.info("app closed")
+        event.accept()
 
 
 if __name__ == "__main__":

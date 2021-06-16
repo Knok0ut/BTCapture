@@ -1,0 +1,9 @@
+2021-06-16 21:17:10,059 - D:\学习文件\信息内容安全\lab\BTCapture\BTCapture.py[line:318] - INFO: set filter to: ip
+2021-06-16 21:17:10,060 - D:\学习文件\信息内容安全\lab\BTCapture\BTCapture.py[line:148] - INFO: capture started
+2021-06-16 21:17:10,061 - D:\学习文件\信息内容安全\lab\BTCapture\BTCapture.py[line:40] - DEBUG: current filter: ip
+2021-06-16 21:17:10,061 - E:\miniconda\lib\asyncio\proactor_events.py[line:623] - DEBUG: Using proactor: IocpProactor
+2021-06-16 21:18:18,430 - D:\学习文件\信息内容安全\lab\BTCapture\BTCapture.py[line:160] - INFO: capture stopped
+2021-06-16 21:21:18,544 - D:\学习文件\信息内容安全\lab\BTCapture\BTCapture.py[line:23] - INFO: app opened
+2021-06-16 21:22:35,934 - D:\学习文件\信息内容安全\lab\BTCapture\BTCapture.py[line:23] - INFO: app opened
+2021-06-16 21:26:17,643 - D:\学习文件\信息内容安全\lab\BTCapture\BTCapture.py[line:23] - INFO: app opened
+2021-06-16 21:26:19,564 - D:\学习文件\信息内容安全\lab\BTCapture\BTCapture.py[line:336] - INFO: app closed
