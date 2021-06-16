@@ -234,6 +234,9 @@ class Window(QMainWindow):
         self.info("保存成功")
 
     def restore_from_db(self):
+        self.trackeranalyse = TrackerAnalyse()
+        self.dhtanalyse = DHTAnalyse()
+        self.bittorrentanalyse = BittorrentAnalyse()
         self.restore_dialog = QDialog()
         self.restore_dialog.ui = OpenDocumentDialog.Ui_Dialog()
         self.restore_dialog.ui.setupUi(self.restore_dialog)
