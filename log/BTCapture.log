@@ -7,3 +7,18 @@
 2021-06-16 21:22:35,934 - D:\学习文件\信息内容安全\lab\BTCapture\BTCapture.py[line:23] - INFO: app opened
 2021-06-16 21:26:17,643 - D:\学习文件\信息内容安全\lab\BTCapture\BTCapture.py[line:23] - INFO: app opened
 2021-06-16 21:26:19,564 - D:\学习文件\信息内容安全\lab\BTCapture\BTCapture.py[line:336] - INFO: app closed
+2021-06-16 23:16:09,110 - D:\学习文件\信息内容安全\lab\BTCapture\BTCapture.py[line:23] - INFO: app opened
+2021-06-16 23:16:28,799 - D:\学习文件\信息内容安全\lab\BTCapture\BTCapture.py[line:328] - INFO: set filter to: ip
+2021-06-16 23:16:28,881 - D:\学习文件\信息内容安全\lab\BTCapture\BTCapture.py[line:155] - INFO: capture started
+2021-06-16 23:16:28,882 - D:\学习文件\信息内容安全\lab\BTCapture\BTCapture.py[line:41] - DEBUG: current filter: ip
+2021-06-16 23:16:28,888 - E:\miniconda\lib\asyncio\proactor_events.py[line:623] - DEBUG: Using proactor: IocpProactor
+2021-06-16 23:16:39,216 - D:\学习文件\信息内容安全\lab\BTCapture\BTCapture.py[line:167] - INFO: capture stopped
+2021-06-16 23:16:50,596 - D:\学习文件\信息内容安全\lab\BTCapture\BTCapture.py[line:236] - INFO: save current packets to data base, document name: hah
+2021-06-16 23:16:58,732 - D:\学习文件\信息内容安全\lab\BTCapture\BTCapture.py[line:272] - INFO: restore packets from data base, document name: hah
+2021-06-16 23:17:05,283 - D:\学习文件\信息内容安全\lab\BTCapture\BTCapture.py[line:272] - INFO: restore packets from data base, document name: merge
+2021-06-16 23:17:21,477 - D:\学习文件\信息内容安全\lab\BTCapture\BTCapture.py[line:345] - INFO: app closed
+2021-06-16 23:17:46,489 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:23] - INFO: app opened
+2021-06-16 23:18:01,016 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:345] - INFO: app closed
+2021-06-16 23:18:49,921 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:23] - INFO: app opened
+2021-06-16 23:18:56,503 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:272] - INFO: restore packets from data base, document name: merge
+2021-06-16 23:19:06,263 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:345] - INFO: app closed

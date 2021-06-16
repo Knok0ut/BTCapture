@@ -224,7 +224,7 @@ class Window(QMainWindow):
         name = self.save_dialog.ui.lineEdit.text()
         name = name.strip()
         if name == "":
-            name = str(datetime.datetime.now()).replace(" ", ":").replace(".", ":")
+            name = str(datetime.datetime.now()).replace(" ", ":").replace(".", ":").strip()
             self.info(f"输入为空,使用默认名称: {name}", self.save_dialog)
         if fs.exists(name.strip()):
             self.warn("命名冲突，该存档已经存在", self.save_dialog)
@@ -253,7 +253,7 @@ class Window(QMainWindow):
         if self.is_running:
             self.stop()
         self.clear_all_info()
-        name = self.restore_dialog.ui.listWidget.currentItem().text()
+        name = self.restore_dialog.ui.listWidget.currentItem().text().strip()
         d = pickle.loads(fs.get(name).read())
         if not d:
             self.restore_dialog.close()
