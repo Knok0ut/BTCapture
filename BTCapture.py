@@ -1,10 +1,10 @@
-import os
 import sys
 import pyshark
 from pyshark.packet.packet import Packet
-from ui import mainwindow
+from ui import MainWindow, SavePacketsDialog, OpenDocumentDialog
 from util.Record import Record
-from PyQt6.QtWidgets import QApplication, QMainWindow, QHeaderView, QTableWidgetItem, QTreeWidgetItem
+from PyQt6.QtWidgets import QApplication, QMainWindow, QHeaderView, QTableWidgetItem, QTreeWidgetItem, QMessageBox, \
+    QDialog, QListWidgetItem
 from PyQt6.QtCore import QThread, pyqtSignal, Qt
 from PyQt6.QtGui import QColor, QPalette
 from ui.HexView import HexView
@@ -18,6 +18,7 @@ import pickle
 client = pymongo.MongoClient('mongodb://localhost:27017')
 db = client["BTCapture"]
 c_set = db["PacketDict"]
+fs = gridfs.GridFS(db, "PacketDict")
 
 
 class Capture(QThread):
@@ -45,7 +46,7 @@ class Capture(QThread):
         self.wait()
 
     def send_signal(self, pkt: Packet):
-        print("I'm not terminated")
+        # print("I'm not terminated")
         self.signal.emit(pkt)
 
     def get_id(self):
@@ -55,8 +56,8 @@ class Capture(QThread):
 class Window(QMainWindow):
     def __init__(self):
         super(Window, self).__init__()
-        self.pkt_dict = None
-        self.ui = mainwindow.Ui_MainWindow()
+        self.pkt_dict = dict()
+        self.ui = MainWindow.Ui_MainWindow()
         self.ui.setupUi(self)
         self.hex_view = HexView()
         self.hex_view.setParent(self.ui.splitter)
@@ -76,6 +77,11 @@ class Window(QMainWindow):
         self.ui.actionstop.triggered.connect(self.stop)
         self.ui.actionstop.setEnabled(False)
         self.ui.actionsaveToDB.triggered.connect(self.save_to_db)
+        self.ui.actionsaveToDB.setEnabled(False)
+        self.ui.actionrestoreFromDB.triggered.connect(self.restore_from_db)
+        self.ui.actionrestoreFromDB.setEnabled(True)
+        self.ui.actionclear.triggered.connect(self.clear_all_info)
+        self.ui.actionclear.setEnabled(False)
         # self.ui.actionstop.setEnabled(False)
         self.is_running = False
         self.time = None
@@ -118,7 +124,7 @@ class Window(QMainWindow):
         self.tree.setHeaderHidden(True)
 
     def start(self):
-        self.tree.clear()
+        self.clear_all_info()
         self.current_pkt = None
         if self.pkt_dict:
             del self.pkt_dict
@@ -129,6 +135,9 @@ class Window(QMainWindow):
         self.is_running = True
         self.ui.actionstart.setEnabled(False)
         self.ui.actionstop.setEnabled(True)
+        self.ui.actionsaveToDB.setEnabled(False)
+        self.ui.actionrestoreFromDB.setEnabled(False)
+        self.ui.actionclear.setEnabled(False)
 
     def stop(self):
         if self.capture.isRunning():
@@ -137,6 +146,9 @@ class Window(QMainWindow):
         self.capture_init()
         self.ui.actionstart.setEnabled(True)
         self.ui.actionstop.setEnabled(False)
+        self.ui.actionsaveToDB.setEnabled(True)
+        self.ui.actionrestoreFromDB.setEnabled(True)
+        self.ui.actionclear.setEnabled(True)
 
     def add_row(self, ls: list):
         row_cnt = self.table.rowCount()
@@ -161,11 +173,66 @@ class Window(QMainWindow):
             print("no attribute ip/ipv6")
 
     def save_to_db(self):
-        name = str(datetime.datetime.now()).replace(" ", ":").replace(".", ":")
+        self.save_dialog = QDialog()
+        self.save_dialog.ui = SavePacketsDialog.Ui_Dialog()
+        self.save_dialog.ui.setupUi(self.save_dialog)
+        self.save_dialog.ui.pushButton.clicked.connect(self._save_to_db)
+        self.save_dialog.show()
+
         # with open("./tmp/this.dump", "wb") as f:
+
+    def _save_to_db(self):
+        name = self.save_dialog.ui.lineEdit.text()
+        name = name.strip()
+        if name == "":
+            self.warn("输入为空", self.save_dialog)
+            name = str(datetime.datetime.now()).replace(" ", ":").replace(".", ":")
+        if fs.exists(name.strip()):
+            self.warn("命名冲突，该存档已经存在", self.save_dialog)
+            return
         data = pickle.dumps(self.pkt_dict)
-        fs = gridfs.GridFS(db, "PacketDict")
-        fs.put(data, _id=name)
+        fs.put(data, _id=name, filename=name)
+        self.save_dialog.close()
+        self.info("保存成功")
+
+    def restore_from_db(self):
+        self.restore_dialog = QDialog()
+        self.restore_dialog.ui = OpenDocumentDialog.Ui_Dialog()
+        self.restore_dialog.ui.setupUi(self.restore_dialog)
+        self.restore_dialog.ui.pushButton.clicked.connect(self._restore_from_db)
+        self.restore_dialog.ui.listWidget.doubleClicked.connect(self._restore_from_db)
+        self.restore_dialog.show()
+        ls = fs.list()
+        for item in ls:
+            self.restore_dialog.ui.listWidget.addItem(QListWidgetItem(item))
+
+    def _restore_from_db(self):
+        if self.is_running:
+            self.stop()
+        self.clear_all_info()
+        name = self.restore_dialog.ui.listWidget.currentItem().text()
+        d = pickle.loads(fs.get(name).read())
+        if not d:
+            self.restore_dialog.close()
+            self.warn("这个存档没有任何记录")
+        # self.pkt_dict: dict = self.pkt_dict
+        else:
+            self.pkt_dict = d
+            keys = list(self.pkt_dict.keys())
+            keys.sort()
+            for key in keys:
+                self.deal_with_pkt(self.pkt_dict[key])
+            self.restore_dialog.close()
+        self.ui.actionrestoreFromDB.setEnabled(True)
+        self.ui.actionclear.setEnabled(True)
+        self.ui.actionsaveToDB.setEnabled(True)
+
+    def clear_all_info(self):
+        self.pkt_dict = dict()
+        self.tree.clear()
+        self.table.clear()
+        self.table.setRowCount(0)
+        self.time = 0
 
     # def show_pretty_detail(self):
     #     if self.current_pkt:
@@ -223,6 +290,21 @@ class Window(QMainWindow):
         f = self.filter.text()
         self.capture.filter = f
         self.start()
+
+    def warn(self, msg: str, parent=None, title=""):
+        if not parent:
+            QMessageBox.warning(self, title, msg)
+        else:
+            QMessageBox.warning(parent, title, msg)
+
+    def info(self, msg: str, parent=None, title=""):
+        if not parent:
+            QMessageBox.information(self, title, msg)
+        else:
+            QMessageBox.information(parent, title, msg)
+    # def info(self,msg: str):
+    #     msg_box = QMessageBox(QMessageBox.Warning, 'Warning', msg)
+    #     msg_box.exec_()
 
 
 if __name__ == "__main__":

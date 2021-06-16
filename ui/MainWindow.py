@@ -1,4 +1,4 @@
-# Form implementation generated from reading ui file 'ui/test.ui'
+# Form implementation generated from reading ui file 'ui/MainWindow.ui'
 #
 # Created by: PyQt6 UI code generator 6.1.0
 #
@@ -83,9 +83,15 @@ class Ui_MainWindow(object):
         self.actionstop.setObjectName("actionstop")
         self.actionsaveToDB = QtGui.QAction(MainWindow)
         self.actionsaveToDB.setObjectName("actionsaveToDB")
+        self.actionrestoreFromDB = QtGui.QAction(MainWindow)
+        self.actionrestoreFromDB.setObjectName("actionrestoreFromDB")
+        self.actionclear = QtGui.QAction(MainWindow)
+        self.actionclear.setObjectName("actionclear")
         self.menu.addAction(self.actionstart)
         self.menu.addAction(self.actionstop)
         self.menu.addAction(self.actionsaveToDB)
+        self.menu.addAction(self.actionrestoreFromDB)
+        self.menu.addAction(self.actionclear)
         self.menubar.addAction(self.menu.menuAction())
 
         self.retranslateUi(MainWindow)
@@ -115,3 +121,5 @@ class Ui_MainWindow(object):
         self.actionstart.setText(_translate("MainWindow", "start"))
         self.actionstop.setText(_translate("MainWindow", "stop"))
         self.actionsaveToDB.setText(_translate("MainWindow", "saveToDB"))
+        self.actionrestoreFromDB.setText(_translate("MainWindow", "restoreFromDB"))
+        self.actionclear.setText(_translate("MainWindow", "clear"))

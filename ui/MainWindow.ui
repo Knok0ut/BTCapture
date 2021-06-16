@@ -140,6 +140,8 @@
     <addaction name="actionstart"/>
     <addaction name="actionstop"/>
     <addaction name="actionsaveToDB"/>
+    <addaction name="actionrestoreFromDB"/>
+    <addaction name="actionclear"/>
    </widget>
    <addaction name="menu"/>
   </widget>
@@ -157,6 +159,16 @@
   <action name="actionsaveToDB">
    <property name="text">
     <string>saveToDB</string>
+   </property>
+  </action>
+  <action name="actionrestoreFromDB">
+   <property name="text">
+    <string>restoreFromDB</string>
+   </property>
+  </action>
+  <action name="actionclear">
+   <property name="text">
+    <string>clear</string>
    </property>
   </action>
  </widget>
