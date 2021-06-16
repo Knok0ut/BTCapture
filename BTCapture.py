@@ -21,6 +21,7 @@ class Capture(QThread):
         self.filter = "http or bt-dht or bittorrent"
 
     def run(self):
+
         if self.filter:
             print("current filter: " + str(self.filter) + '\n')
         if not self.filter:
@@ -54,6 +55,9 @@ class Capture(QThread):
 class Window(QMainWindow):
     def __init__(self):
         super(Window, self).__init__()
+        self.trackeranalyse = None
+        self.dhtanalyse = None
+        self.bittorrentanalyse = None
         self.pkt_dict = None
         self.ui = mainwindow.Ui_MainWindow()
         self.ui.setupUi(self)
@@ -114,6 +118,9 @@ class Window(QMainWindow):
         self.tree.setHeaderHidden(True)
 
     def start(self):
+        self.trackeranalyse = TrackerAnalyse()
+        self.dhtanalyse = DHTAnalyse()
+        self.bittorrentanalyse = BittorrentAnalyse()
         self.tree.clear()
         self.current_pkt = None
         if self.pkt_dict:
@@ -148,11 +155,11 @@ class Window(QMainWindow):
         # print(pkt)
         self.pkt_dict[int(pkt.number)] = pkt
         if hasattr(pkt, "http"):
-            info = print_tracker_info(pkt)
+            info = print_tracker_info(pkt, self.trackeranalyse)
         if hasattr(pkt, "bt-dht"):
-            info = print_dht_info(pkt)
+            info = print_dht_info(pkt, self.dhtanalyse)
         if hasattr(pkt, "bittorrent"):
-            info = print_bittorrent_info(pkt)
+            info = print_bittorrent_info(pkt, self.bittorrentanalyse)
         if hasattr(pkt, "ip"):
             if hasattr(pkt, "http") or hasattr(pkt, "bt-dht") or hasattr(pkt, "bittorrent"):
                 if info and info != "ICMP":
