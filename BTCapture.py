@@ -1,12 +1,23 @@
+import os
 import sys
 import pyshark
 from pyshark.packet.packet import Packet
 from ui import mainwindow
+from util.Record import Record
 from PyQt6.QtWidgets import QApplication, QMainWindow, QHeaderView, QTableWidgetItem, QTreeWidgetItem
 from PyQt6.QtCore import QThread, pyqtSignal, Qt
 from PyQt6.QtGui import QColor, QPalette
 from ui.HexView import HexView
+import pymongo
+import gridfs
 import time
+import threading
+import datetime
+import pickle
+
+client = pymongo.MongoClient('mongodb://localhost:27017')
+db = client["BTCapture"]
+c_set = db["PacketDict"]
 
 
 class Capture(QThread):
@@ -18,32 +29,27 @@ class Capture(QThread):
         self.filter = "bittorrent"
 
     def run(self):
-        print(self.filter)
+        # print(self.filter)
         if not self.filter:
             # self.cap = pyshark.LiveCapture(interface="WLAN", use_json=True, include_raw=True,
             #                                display_filter="bittorrent")
-            self.cap = pyshark.LiveCapture(interface="WLAN",
-                                           display_filter="bittorrent")
+            self.cap = pyshark.LiveCapture(interface="WLAN", display_filter="bittorrent")
         else:
             # self.cap = pyshark.LiveCapture(interface="WLAN", use_json=True, include_raw=True, display_filter=self.filter
             #                                )
-            self.cap = pyshark.LiveCapture(interface="WLAN", display_filter=self.filter
-                                           )
+            self.cap = pyshark.LiveCapture(interface="WLAN", display_filter=self.filter)
         self.cap.apply_on_packets(self.send_signal, timeout=300)
 
     def stop(self):
-        # self.quit()
-        if self.cap:
-            self.cap.close()
         self.terminate()
         self.wait()
 
     def send_signal(self, pkt: Packet):
-        # print("I'm not terminated")
+        print("I'm not terminated")
         self.signal.emit(pkt)
 
-
-# class SaveDict(QThread):
+    def get_id(self):
+        return threading.get_ident()
 
 
 class Window(QMainWindow):
@@ -55,7 +61,7 @@ class Window(QMainWindow):
         self.hex_view = HexView()
         self.hex_view.setParent(self.ui.splitter)
         self.filter = self.ui.lineEdit
-        self.filter.textChanged.connect(self.test)
+        self.filter.textChanged.connect(self.set_placeholder_font)
         self.go_btn = self.ui.goBtn
         self.go_btn.clicked.connect(self.do_filter)
         self.ui.tableWidget.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
@@ -63,23 +69,22 @@ class Window(QMainWindow):
         self.tree = self.ui.treeWidget
         # self.text = self.ui.textBrowser
         self.menu = self.ui.menu
-        self.capture = Capture()
-        self.capture.signal.connect(self.deal_with_pkt)
+        self.capture_init()
         self.table_init()
         self.tree_init()
         self.ui.actionstart.triggered.connect(self.start)
         self.ui.actionstop.triggered.connect(self.stop)
         self.ui.actionstop.setEnabled(False)
-        self.ui.actionprettify.triggered.connect(self.show_pretty_detail)
+        self.ui.actionsaveToDB.triggered.connect(self.save_to_db)
         # self.ui.actionstop.setEnabled(False)
         self.is_running = False
         self.time = None
         self.current_pkt = None
-        self.inMemCapture = pyshark.InMemCapture()
+        # self.inMemCapture = pyshark.InMemCapture()
         self.last_filter_is_empty = True
-        self.test()
+        self.set_placeholder_font()
 
-    def test(self):
+    def set_placeholder_font(self):
         if self.filter.text().strip() == "":
             self.last_filter_is_empty = True
             # self.filter.palette().setColor(QPalette.ColorRole.WindowText, Qt.GlobalColor.red)
@@ -99,6 +104,10 @@ class Window(QMainWindow):
                                     color: black;
                                 }
                                 ''')
+
+    def capture_init(self):
+        self.capture = Capture()
+        self.capture.signal.connect(self.deal_with_pkt)
 
     def table_init(self):
         self.table.setRowCount(0)
@@ -122,10 +131,10 @@ class Window(QMainWindow):
         self.ui.actionstop.setEnabled(True)
 
     def stop(self):
-        # print()
-        self.capture.stop()
+        if self.capture.isRunning():
+            self.capture.stop()
         self.is_running = False
-        # print(self.capture.isRunning())
+        self.capture_init()
         self.ui.actionstart.setEnabled(True)
         self.ui.actionstop.setEnabled(False)
 
@@ -139,8 +148,6 @@ class Window(QMainWindow):
         self.table.setSortingEnabled(tmp)
 
     def deal_with_pkt(self, pkt: Packet):
-        # print(pkt)
-        # print(pkt)
         self.pkt_dict[int(pkt.number)] = pkt
         if hasattr(pkt, "ip"):
             self.add_row(
@@ -153,23 +160,27 @@ class Window(QMainWindow):
         else:
             print("no attribute ip/ipv6")
 
-    def show_pretty_detail(self):
-        if self.current_pkt:
-            # loop = asyncio.ProactorEventLoop()
-            # asyncio.set_event_loop(loop)
-            # c = pyshark.InMemCapture()
-            # print(self.current_pkt.get_raw_packet())
-            pkt = self.inMemCapture.parse_packet(self.current_pkt.get_raw_packet())
-            self.show_pkt_tree(pkt)
-            # c.close()
+    def save_to_db(self):
+        name = str(datetime.datetime.now()).replace(" ", ":").replace(".", ":")
+        # with open("./tmp/this.dump", "wb") as f:
+        data = pickle.dumps(self.pkt_dict)
+        fs = gridfs.GridFS(db, "PacketDict")
+        fs.put(data, _id=name)
+
+    # def show_pretty_detail(self):
+    #     if self.current_pkt:
+    #         # loop = asyncio.ProactorEventLoop()
+    #         # asyncio.set_event_loop(loop)
+    #         # c = pyshark.InMemCapture()
+    #         # print(self.current_pkt.get_raw_packet())
+    #         pkt = self.inMemCapture.parse_packet(self.current_pkt.get_raw_packet())
+    #         self.show_pkt_tree(pkt)
+    # c.close()
 
     def show_detail(self, row, column):
         item = self.table.item(row, 0)
-        # print(item.text())
         pkt: Packet = self.pkt_dict.get(int(item.text()))
         self.current_pkt = pkt
-        # pkt.frame_info
-        # print(pkt)
         if not pkt:
             print("packet map error")
             return
@@ -206,7 +217,7 @@ class Window(QMainWindow):
 
     def do_filter(self):
         if self.capture and self.capture.isRunning():
-            self.capture.stop()
+            self.capture.exit(0)
         if not self.capture:
             self.capture = Capture()
         f = self.filter.text()
