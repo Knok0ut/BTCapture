@@ -18,9 +18,9 @@ client = pymongo.MongoClient('mongodb://localhost:27017')
 db = client["BTCapture"]
 c_set = db["PacketDict"]
 fs = gridfs.GridFS(db, "PacketDict")
-from dht import *
-from tracker import *
-from bittorrent import *
+from util.dht import *
+from util.tracker import *
+from util.bittorrent import *
 
 
 class Capture(QThread):

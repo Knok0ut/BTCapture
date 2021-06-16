@@ -3,9 +3,16 @@ from pyshark.packet.packet import Packet
 from bencode import *
 import gzip
 
-ip_dst = set()
-tracker_ipport = dict()
-# peerlist = []
+class TrackerAnalyse():
+    def __init__(self):
+        self.ip_dst = set()
+        self.tracker_ipport = dict()
+        self.response_ipport = dict()
+        self.local_port = dict()
+        self.type = dict()
+        self.type['Get'] = 0
+        self.type['Response'] = 0
+        self.peers = []
 
 def bytes2ipport(bytes):
     port = int.from_bytes(bytes[4:6], byteorder='big')
@@ -16,7 +23,9 @@ def bytes2ipport(bytes):
     return ip + ':' + str(port)
 
 
-def print_tracker_info(pkt: Packet):
+def print_tracker_info(pkt: Packet, analyse: TrackerAnalyse):
+    ip_dst = analyse.ip_dst
+    tracker_ipport = analyse.tracker_ipport
     if hasattr(pkt.http, 'response'):
         if int(pkt.http.response_code) == 200:
             print('Tracker:Http Response')
@@ -56,6 +65,12 @@ def print_tracker_info(pkt: Packet):
                             print(bytes2ipport(temp1[(i * 6):(i * 6 + 6)]))
                             peerlist.append(bytes2ipport(temp1[(i * 6):(i * 6 + 6)]))
                 print()
+                analyse.type['Response'] += 1
+                analyse.peers += peerlist
+                if (pkt.ipv6.src, pkt.tcp.srcport) in analyse.response_ipport.keys():
+                    analyse.response_ipport[(pkt.ipv6.src, pkt.tcp.srcport)] += 1
+                else:
+                    analyse.response_ipport[(pkt.ipv6.src, pkt.tcp.srcport)] = 1
                 return str(temp) + str(peerlist)
 
             elif hasattr(pkt, 'ip') and pkt.ip.src in ip_dst:
@@ -73,10 +88,9 @@ def print_tracker_info(pkt: Packet):
                         length = int(pkt.http.content_length)
                         temp = bdecode((bytes.fromhex(pkt.tcp.payload.raw_value))[-length:])
                 except BTFailure as e:
-                    if hasattr(pkt.http, 'content-type') and str(
-                            getattr(pkt.http, 'content-type')) == 'application/octet-stream':
+                    try:
                         temp = bdecode((bytes.fromhex(pkt.tcp.payload.raw_value))[-length:-1])
-                    else:
+                    except:
                         print(pkt)
                         print()
                         return
@@ -98,6 +112,12 @@ def print_tracker_info(pkt: Packet):
                             print(bytes2ipport(temp1[(i * 6):(i * 6 + 6)]))
                             peerlist.append(bytes2ipport(temp1[(i * 6):(i * 6 + 6)]))
                 print()
+                analyse.type['Response'] += 1
+                analyse.peers += peerlist
+                if (pkt.ip.src, pkt.tcp.srcport) in analyse.response_ipport.keys():
+                    analyse.response_ipport[(pkt.ip.src, pkt.tcp.srcport)] += 1
+                else:
+                    analyse.response_ipport[(pkt.ip.src, pkt.tcp.srcport)] = 1
                 return str(temp) + str(peerlist)
     else:
         if hasattr(pkt.http, 'request_uri') and ((
@@ -120,9 +140,14 @@ def print_tracker_info(pkt: Packet):
                     tracker_ipport[(pkt.ip.dst, pkt.tcp.dstport)] = tracker_ipport[(pkt.ip.dst, pkt.tcp.dstport)] + 1
                 else:
                     tracker_ipport[(pkt.ip.dst, pkt.tcp.dstport)] = 1
+            if pkt.tcp.srcport in analyse.local_port.keys():
+                analyse.local_port[pkt.tcp.srcport] += 1
+            else:
+                analyse.local_port[pkt.tcp.srcport] = 1
+            analyse.type['Get'] += 1
             return pkt.http.request_uri
 
 
-if __name__ == '__main__':
-    cap = pyshark.LiveCapture(interface='WLAN', display_filter='http')
-    cap.apply_on_packets(print_tracker_info, timeout=1000)
+# if __name__ == '__main__':
+#     cap = pyshark.LiveCapture(interface='WLAN', display_filter='http')
+#     cap.apply_on_packets(print_tracker_info, timeout=1000)
