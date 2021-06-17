@@ -8,8 +8,8 @@ class DHTAnalyse():
         self.response_ipport = dict()
         self.type = dict()
         self.type['response'] = 0
-        self.nodes = []
-        self.peers = []
+        self.nodes = set()
+        self.peers = set()
 
 def handle_nodes(nodes: bytes, analyse: DHTAnalyse):
     counter = 0
@@ -24,7 +24,7 @@ def handle_nodes(nodes: bytes, analyse: DHTAnalyse):
         nodes = nodes[6:]
         counter += 1
         print('Node %d:\nid:%s\nip:%s\nport:%d'%(counter, id, ip, port))
-        analyse.nodes.append((id, ip, port))
+        analyse.nodes.add((id, ip, port))
     return counter
 
 def handle_peers(peers: list, analyse: DHTAnalyse):
@@ -37,7 +37,7 @@ def handle_peers(peers: list, analyse: DHTAnalyse):
         port = int.from_bytes(peer[4:6], byteorder='big')
         counter += 1
         print('Peer %d:\nip:%s\nport:%d' % (counter, ip, port))
-        analyse.peers.append((ip, port))
+        analyse.peers.add((ip, port))
     return counter
     #  
     # while len(peers) != 0:

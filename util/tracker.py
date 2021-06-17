@@ -12,7 +12,7 @@ class TrackerAnalyse():
         self.type = dict()
         self.type['Get'] = 0
         self.type['Response'] = 0
-        self.peers = []
+        self.peers = set()
 
 def bytes2ipport(bytes):
     port = int.from_bytes(bytes[4:6], byteorder='big')
@@ -66,7 +66,7 @@ def print_tracker_info(pkt: Packet, analyse: TrackerAnalyse):
                             peerlist.append(bytes2ipport(temp1[(i * 6):(i * 6 + 6)]))
                 print()
                 analyse.type['Response'] += 1
-                analyse.peers += peerlist
+                analyse.peers = analyse.peers.union(set(peerlist))
                 if (pkt.ipv6.src, pkt.tcp.srcport) in analyse.response_ipport.keys():
                     analyse.response_ipport[(pkt.ipv6.src, pkt.tcp.srcport)] += 1
                 else:
@@ -113,7 +113,7 @@ def print_tracker_info(pkt: Packet, analyse: TrackerAnalyse):
                             peerlist.append(bytes2ipport(temp1[(i * 6):(i * 6 + 6)]))
                 print()
                 analyse.type['Response'] += 1
-                analyse.peers += peerlist
+                analyse.peers = analyse.peers.union(set(peerlist))
                 if (pkt.ip.src, pkt.tcp.srcport) in analyse.response_ipport.keys():
                     analyse.response_ipport[(pkt.ip.src, pkt.tcp.srcport)] += 1
                 else:

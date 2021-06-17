@@ -87,10 +87,13 @@ class Ui_MainWindow(object):
         self.actionrestoreFromDB.setObjectName("actionrestoreFromDB")
         self.actionclear = QtGui.QAction(MainWindow)
         self.actionclear.setObjectName("actionclear")
+        self.actionanalyse = QtGui.QAction(MainWindow)
+        self.actionanalyse.setObjectName("actionanalyse")
         self.menu.addAction(self.actionstart)
         self.menu.addAction(self.actionstop)
         self.menu.addAction(self.actionsaveToDB)
         self.menu.addAction(self.actionrestoreFromDB)
+        self.menu.addAction(self.actionanalyse)
         self.menu.addAction(self.actionclear)
         self.menubar.addAction(self.menu.menuAction())
 
@@ -123,3 +126,4 @@ class Ui_MainWindow(object):
         self.actionsaveToDB.setText(_translate("MainWindow", "saveToDB"))
         self.actionrestoreFromDB.setText(_translate("MainWindow", "restoreFromDB"))
         self.actionclear.setText(_translate("MainWindow", "clear"))
+        self.actionanalyse.setText(_translate("MainWindow", "analyse"))
