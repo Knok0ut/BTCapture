@@ -141,6 +141,7 @@
     <addaction name="actionstop"/>
     <addaction name="actionsaveToDB"/>
     <addaction name="actionrestoreFromDB"/>
+    <addaction name="actionanalyse"/>
     <addaction name="actionclear"/>
    </widget>
    <addaction name="menu"/>
@@ -169,6 +170,11 @@
   <action name="actionclear">
    <property name="text">
     <string>clear</string>
+   </property>
+  </action>
+  <action name="actionanalyse">
+   <property name="text">
+    <string>analyse</string>
    </property>
   </action>
  </widget>

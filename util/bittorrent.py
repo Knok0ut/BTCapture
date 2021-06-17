@@ -74,6 +74,7 @@ def print_bittorrent_info(pkt: Packet, analyse: BittorrentAnalyse):
     for layer in pkt.layers:
         if layer.layer_name == 'bittorrent':
             if hasattr(layer, 'msg_type'):
+                print('message_type:%d' % int(layer.msg_type))
                 info += str(layer.msg).split(', ', 1)[1] + ' '
                 if int(layer.msg_type) in analyse.type.keys():
                     analyse.type[int(layer.msg_type)] += 1
@@ -81,19 +82,19 @@ def print_bittorrent_info(pkt: Packet, analyse: BittorrentAnalyse):
                     analyse.type[int(layer.msg_type)] = 1
             else:
                 if hasattr(layer, 'continuous_data'):
-                    info += 'Continuation data'
+                    info += 'Continuation data '
                     analyse.type[-2] += 1
                     print('continue data:' + str(layer.continuous_data).replace(':', ''))
                 else:
                     try:
-                        info += 'Handshake'
+                        info += 'Handshake '
                         info_hash = str(layer.info_hash).replace(':', '')
                         peer_id = str(layer.peer_id).replace(':', '')
                         analyse.type[-1] += 1
                         print('info hash:%s\npeer id:%s' % (info_hash, peer_id))
                     except AttributeError as e:
                         print(pkt)
-                        info += 'Bittorrent'
+                        info += 'Bittorrent '
                         analyse.type[-3] += 1
     print(info)
     print()
