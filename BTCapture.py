@@ -348,9 +348,10 @@ class Window(QMainWindow):
             table.setItem(row_cnt, 0, QTableWidgetItem(str(temp[0])))
             table.setItem(row_cnt, 1, QTableWidgetItem(str(temp[1])))
             row_cnt += 1
-
         self.trackerwindow.showMaximized()
         self.trackerwindow.show()
+        logger.info("analyse Tracker")
+
 
     def _dht_info(self):
         self.dhtwindow = QWidget()
@@ -408,6 +409,7 @@ class Window(QMainWindow):
 
         self.dhtwindow.showMaximized()
         self.dhtwindow.show()
+        logger.info("analyse DHT")
 
     def _bt_info(self):
         self.btwindow = QWidget()
@@ -470,6 +472,7 @@ class Window(QMainWindow):
 
         self.btwindow.showMaximized()
         self.btwindow.show()
+        logger.info("analyse BT")
 
     def clear_all_info(self):
         self.pkt_dict = dict()
