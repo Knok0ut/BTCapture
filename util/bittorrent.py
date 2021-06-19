@@ -39,9 +39,9 @@ class BittorrentAnalyse():
 
 def print_bittorrent_info(pkt: Packet, analyse: BittorrentAnalyse):
     if hasattr(pkt, 'ip'):
-        if str(pkt.ip.src) == analyse.ip:
+        if pkt.send:
             analyse.up += 1
-        elif str(pkt.ip.dst) == analyse.ip:
+        elif pkt.recv:
             analyse.down += 1
             if (pkt.ip.src, pkt.tcp.srcport) in analyse.remote_ipport.keys():
                 analyse.remote_ipport[(pkt.ip.src, pkt.tcp.srcport)] += 1
@@ -54,9 +54,9 @@ def print_bittorrent_info(pkt: Packet, analyse: BittorrentAnalyse):
         else:
             print('bug1')
     elif hasattr(pkt, 'ipv6'):
-        if str(pkt.ipv6.src) in analyse.ipv6:
+        if pkt.send:
             analyse.up += 1
-        elif str(pkt.ipv6.dst) in analyse.ipv6:
+        elif pkt.recv:
             analyse.down += 1
             if (pkt.ipv6.src, pkt.tcp.srcport) in analyse.remote_ipport.keys():
                 analyse.remote_ipport[(pkt.ipv6.src, pkt.tcp.srcport)] += 1

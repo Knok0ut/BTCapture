@@ -191,6 +191,22 @@ class Window(QMainWindow):
 
     def deal_with_pkt(self, pkt: Packet):
         self.pkt_dict[int(pkt.number)] = pkt
+        ip = gethostip()
+        ipv6 = gethostipv6()
+        if hasattr(pkt, "ip"):
+            if str(pkt.ip.src) == ip:
+                pkt.send = True
+                pkt.recv = False
+            elif str(pkt.ip.dst) == ip:
+                pkt.send = False
+                pkt.recv = True
+        elif hasattr(pkt, "ipv6"):
+            if str(pkt.ipv6.src) in ipv6:
+                pkt.send = True
+                pkt.recv = False
+            elif str(pkt.ipv6.dst) in ipv6:
+                pkt.send = False
+                pkt.recv = True
         if hasattr(pkt, "http"):
             info = print_tracker_info(pkt, self.trackeranalyse)
         if hasattr(pkt, "bt-dht"):
