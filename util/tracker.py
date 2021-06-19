@@ -50,6 +50,8 @@ def print_tracker_info(pkt: Packet, analyse: TrackerAnalyse):
                         print(pkt)
                         print()
                         return
+                except Exception as e2:
+                    return
                 print(temp)
                 peerlist = []
                 if b'peers' in temp.keys():
@@ -94,6 +96,8 @@ def print_tracker_info(pkt: Packet, analyse: TrackerAnalyse):
                         print(pkt)
                         print()
                         return
+                except Exception as e2:
+                    return
                 # else:
                 #     print('bug')
                 #     print(pkt.http.file_data)
