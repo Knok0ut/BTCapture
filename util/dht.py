@@ -112,7 +112,9 @@ def print_dht_info(pkt: Packet, analyse: DHTAnalyse):
         try:
             return handle_dht_message(bdecode(bytes.fromhex(pkt.udp.payload.raw_value)), analyse, src_ipport, dst_ipport)
         except KeyError as e1:
-            print(str(e1))
+            print(str(e1) + '\n')
+        except BTFailure as e2:
+            print('Malformed DHT Packet\n')
 
 # if __name__ == '__main__':
 #     cap = pyshark.LiveCapture(interface='WLAN', display_filter = 'udp.port == 51934', decode_as={'udp.port == 51934' : 'bt-dht'})
