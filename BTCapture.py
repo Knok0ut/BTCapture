@@ -28,10 +28,6 @@ typedict = {-3: 'Bittorrent', -2: 'Continuation Data', -1: 'Handshake',
             9: 'Port', 13: 'Suggest Piece', 14: 'Have All', 15: 'Have None',
             16: 'Reject Request', 17: 'Allowed Fast', 20: 'Extended'}
 
-from util.dht import *
-from util.tracker import *
-from util.bittorrent import *
-
 
 class Capture(QThread):
     signal = pyqtSignal(Packet)

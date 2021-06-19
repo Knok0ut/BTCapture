@@ -3,7 +3,15 @@ import socket
 import os
 import re
 from pyshark.packet.packet import Packet
+from util.AC import *
 
+sensitivelist = ['Fast', 'WXR', 'BTCapture']
+
+def strlist_tohexlist(strl: list):
+    hexl = []
+    for string in strl:
+        hexl.append(string.encode().hex())
+    return hexl
 
 def gethostip():
     try:
@@ -76,6 +84,11 @@ def print_bittorrent_info(pkt: Packet, analyse: BittorrentAnalyse):
             if hasattr(layer, 'msg_type'):
                 print('message_type:%d' % int(layer.msg_type))
                 info += str(layer.msg).split(', ', 1)[1] + ' '
+                if int(layer.msg_type) == 7:
+                    if hasattr(layer, 'piece_data'):
+                        print('是否含有敏感词：' + str(AC(strlist_tohexlist(sensitivelist), str(layer.piece_data).replace(':', ''))))
+                    else:
+                        print('Malformed Piece Packet')
                 if int(layer.msg_type) in analyse.type.keys():
                     analyse.type[int(layer.msg_type)] += 1
                 else:
