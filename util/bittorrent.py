@@ -3,7 +3,15 @@ import socket
 import os
 import re
 from pyshark.packet.packet import Packet
+from util.AC import *
 
+sensitivelist = ['Fast', 'WXR', 'BTCapture']
+
+def strlist_tohexlist(strl: list):
+    hexl = []
+    for string in strl:
+        hexl.append(string.encode().hex())
+    return hexl
 
 def gethostip():
     try:
@@ -39,9 +47,9 @@ class BittorrentAnalyse():
 
 def print_bittorrent_info(pkt: Packet, analyse: BittorrentAnalyse):
     if hasattr(pkt, 'ip'):
-        if str(pkt.ip.src) == analyse.ip:
+        if pkt.send:
             analyse.up += 1
-        elif str(pkt.ip.dst) == analyse.ip:
+        elif pkt.recv:
             analyse.down += 1
             if (pkt.ip.src, pkt.tcp.srcport) in analyse.remote_ipport.keys():
                 analyse.remote_ipport[(pkt.ip.src, pkt.tcp.srcport)] += 1
@@ -54,9 +62,9 @@ def print_bittorrent_info(pkt: Packet, analyse: BittorrentAnalyse):
         else:
             print('bug1')
     elif hasattr(pkt, 'ipv6'):
-        if str(pkt.ipv6.src) in analyse.ipv6:
+        if pkt.send:
             analyse.up += 1
-        elif str(pkt.ipv6.dst) in analyse.ipv6:
+        elif pkt.recv:
             analyse.down += 1
             if (pkt.ipv6.src, pkt.tcp.srcport) in analyse.remote_ipport.keys():
                 analyse.remote_ipport[(pkt.ipv6.src, pkt.tcp.srcport)] += 1
@@ -74,26 +82,32 @@ def print_bittorrent_info(pkt: Packet, analyse: BittorrentAnalyse):
     for layer in pkt.layers:
         if layer.layer_name == 'bittorrent':
             if hasattr(layer, 'msg_type'):
+                print('message_type:%d' % int(layer.msg_type))
                 info += str(layer.msg).split(', ', 1)[1] + ' '
+                if int(layer.msg_type) == 7:
+                    if hasattr(layer, 'piece_data'):
+                        print('是否含有敏感词：' + str(AC(strlist_tohexlist(sensitivelist), str(layer.piece_data).replace(':', ''))))
+                    else:
+                        print('Malformed Piece Packet')
                 if int(layer.msg_type) in analyse.type.keys():
                     analyse.type[int(layer.msg_type)] += 1
                 else:
                     analyse.type[int(layer.msg_type)] = 1
             else:
                 if hasattr(layer, 'continuous_data'):
-                    info += 'Continuation data'
+                    info += 'Continuation data '
                     analyse.type[-2] += 1
                     print('continue data:' + str(layer.continuous_data).replace(':', ''))
                 else:
                     try:
-                        info += 'Handshake'
+                        info += 'Handshake '
                         info_hash = str(layer.info_hash).replace(':', '')
                         peer_id = str(layer.peer_id).replace(':', '')
                         analyse.type[-1] += 1
                         print('info hash:%s\npeer id:%s' % (info_hash, peer_id))
                     except AttributeError as e:
                         print(pkt)
-                        info += 'Bittorrent'
+                        info += 'Bittorrent '
                         analyse.type[-3] += 1
     print(info)
     print()

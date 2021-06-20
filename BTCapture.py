@@ -1,7 +1,7 @@
 import sys
 from ui import MainWindow, SavePacketsDialog, OpenDocumentDialog
 from PyQt6.QtWidgets import QApplication, QMainWindow, QHeaderView, QTableWidgetItem, QTreeWidgetItem, QMessageBox, \
-    QDialog, QListWidgetItem
+    QDialog, QListWidgetItem, QWidget, QAbstractItemView
 from PyQt6.QtCore import QThread, pyqtSignal
 from ui.HexView import HexView
 import pymongo
@@ -10,6 +10,7 @@ import time
 import threading
 import datetime
 import pickle
+from ui import StatisticsDialog, TrackerWindow, DHTWindow, BTWindow
 from util.dht import *
 from util.tracker import *
 from util.bittorrent import *
@@ -21,6 +22,11 @@ c_set = db["PacketDict"]
 fs = gridfs.GridFS(db, "PacketDict")
 logger = getlogger()
 logger.info("app opened")
+typedict = {-3: 'Bittorrent', -2: 'Continuation Data', -1: 'Handshake',
+            0: 'Choke', 1: 'Unchoke', 2: 'Interested', 3:'Not Interested',
+            4: 'Have', 5: 'Bitfield', 6: 'Request', 7:'Piece', 8: 'Cancel',
+            9: 'Port', 13: 'Suggest Piece', 14: 'Have All', 15: 'Have None',
+            16: 'Reject Request', 17: 'Allowed Fast', 20: 'Extended'}
 
 
 class Capture(QThread):
@@ -92,6 +98,8 @@ class Window(QMainWindow):
         self.ui.actionsaveToDB.setEnabled(False)
         self.ui.actionrestoreFromDB.triggered.connect(self.restore_from_db)
         self.ui.actionrestoreFromDB.setEnabled(True)
+        self.ui.actionanalyse.setEnabled(False)
+        self.ui.actionanalyse.triggered.connect(self.analyse)
         self.ui.actionclear.triggered.connect(self.clear_all_info)
         self.ui.actionclear.setEnabled(False)
         self.is_running = False
@@ -151,6 +159,7 @@ class Window(QMainWindow):
         self.ui.actionstop.setEnabled(True)
         self.ui.actionsaveToDB.setEnabled(False)
         self.ui.actionrestoreFromDB.setEnabled(False)
+        self.ui.actionanalyse.setEnabled(False)
         self.ui.actionclear.setEnabled(False)
         logger.info("capture started")
 
@@ -163,6 +172,7 @@ class Window(QMainWindow):
         self.ui.actionstop.setEnabled(False)
         self.ui.actionsaveToDB.setEnabled(True)
         self.ui.actionrestoreFromDB.setEnabled(True)
+        self.ui.actionanalyse.setEnabled(True)
         self.ui.actionclear.setEnabled(True)
         logger.info("capture stopped")
 
@@ -177,6 +187,22 @@ class Window(QMainWindow):
 
     def deal_with_pkt(self, pkt: Packet):
         self.pkt_dict[int(pkt.number)] = pkt
+        ip = gethostip()
+        ipv6 = gethostipv6()
+        if hasattr(pkt, "ip"):
+            if str(pkt.ip.src) == ip:
+                pkt.send = True
+                pkt.recv = False
+            elif str(pkt.ip.dst) == ip:
+                pkt.send = False
+                pkt.recv = True
+        elif hasattr(pkt, "ipv6"):
+            if str(pkt.ipv6.src) in ipv6:
+                pkt.send = True
+                pkt.recv = False
+            elif str(pkt.ipv6.dst) in ipv6:
+                pkt.send = False
+                pkt.recv = True
         if hasattr(pkt, "http"):
             info = print_tracker_info(pkt, self.trackeranalyse)
         if hasattr(pkt, "bt-dht"):
@@ -248,6 +274,7 @@ class Window(QMainWindow):
         ls = fs.list()
         for item in ls:
             self.restore_dialog.ui.listWidget.addItem(QListWidgetItem(item))
+        self.ui.actionanalyse.setEnabled(True)
 
     def _restore_from_db(self):
         if self.is_running:
@@ -270,6 +297,194 @@ class Window(QMainWindow):
         self.ui.actionclear.setEnabled(True)
         self.ui.actionsaveToDB.setEnabled(True)
         logger.info(f"restore packets from data base, document name: {name}")
+
+    def analyse(self):
+        self.analysedialog = QWidget()
+        self.analysedialog.ui = StatisticsDialog.Ui_Dialog()
+        self.analysedialog.ui.setupUi(self.analysedialog)
+        self.analysedialog.ui.Tracker.clicked.connect(self._tracker_info)
+        self.analysedialog.ui.DHT.clicked.connect(self._dht_info)
+        self.analysedialog.ui.BT.clicked.connect(self._bt_info)
+        self.analysedialog.show()
+
+    def _tracker_info(self):
+        self.trackerwindow = QWidget()
+        self.trackerwindow.ui = TrackerWindow.Ui_Form()
+        self.trackerwindow.ui.setupUi(self.trackerwindow)
+
+        table = self.trackerwindow.ui.tracker_ipport
+        table.setSortingEnabled(True)
+        table.setEditTriggers(QAbstractItemView.EditTrigger.NoEditTriggers)
+        table.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
+        table.horizontalHeader().setSectionResizeMode(0, QHeaderView.ResizeMode.Interactive)
+        row_cnt = 0
+        for key in self.trackeranalyse.tracker_ipport.keys():
+            table.insertRow(row_cnt)
+            table.setItem(row_cnt, 0, QTableWidgetItem("(%s,%s)" % (key[0], key[1])))
+            table.setItem(row_cnt, 1, QTableWidgetItem(str(self.trackeranalyse.tracker_ipport[key])))
+            row_cnt += 1
+
+        table = self.trackerwindow.ui.localport
+        table.setSortingEnabled(True)
+        table.setEditTriggers(QAbstractItemView.EditTrigger.NoEditTriggers)
+        table.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
+        table.horizontalHeader().setSectionResizeMode(0, QHeaderView.ResizeMode.Interactive)
+        row_cnt = 0
+        for key in self.trackeranalyse.local_port.keys():
+            table.insertRow(row_cnt)
+            table.setItem(row_cnt, 0, QTableWidgetItem(str(key)))
+            table.setItem(row_cnt, 1, QTableWidgetItem(str(self.trackeranalyse.local_port[key])))
+            row_cnt += 1
+
+        table = self.trackerwindow.ui.type_num
+        table.setSortingEnabled(True)
+        table.setEditTriggers(QAbstractItemView.EditTrigger.NoEditTriggers)
+        table.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
+        table.horizontalHeader().setSectionResizeMode(0, QHeaderView.ResizeMode.Interactive)
+        row_cnt = 0
+        for key in self.trackeranalyse.type.keys():
+            table.insertRow(row_cnt)
+            table.setItem(row_cnt, 0, QTableWidgetItem(str(key)))
+            table.setItem(row_cnt, 1, QTableWidgetItem(str(self.trackeranalyse.type[key])))
+            row_cnt += 1
+
+        table = self.trackerwindow.ui.peers
+        table.setSortingEnabled(True)
+        table.setEditTriggers(QAbstractItemView.EditTrigger.NoEditTriggers)
+        table.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
+        table.horizontalHeader().setSectionResizeMode(0, QHeaderView.ResizeMode.Interactive)
+        row_cnt = 0
+        for item in self.trackeranalyse.peers:
+            temp = item.split(":")
+            table.insertRow(row_cnt)
+            table.setItem(row_cnt, 0, QTableWidgetItem(str(temp[0])))
+            table.setItem(row_cnt, 1, QTableWidgetItem(str(temp[1])))
+            row_cnt += 1
+        self.trackerwindow.showMaximized()
+        self.trackerwindow.show()
+        logger.info("analyse Tracker")
+
+
+    def _dht_info(self):
+        self.dhtwindow = QWidget()
+        self.dhtwindow.ui = DHTWindow.Ui_Form()
+        self.dhtwindow.ui.setupUi(self.dhtwindow)
+
+        table = self.dhtwindow.ui.ipport
+        table.setSortingEnabled(True)
+        table.setEditTriggers(QAbstractItemView.EditTrigger.NoEditTriggers)
+        table.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
+        table.horizontalHeader().setSectionResizeMode(0, QHeaderView.ResizeMode.Interactive)
+        row_cnt = 0
+        for key in self.dhtanalyse.requested_ipport:
+            table.insertRow(row_cnt)
+            table.setItem(row_cnt, 0, QTableWidgetItem("(%s,%s)" % (key[0], key[1])))
+            table.setItem(row_cnt, 1, QTableWidgetItem(str(self.dhtanalyse.requested_ipport[key])))
+            row_cnt += 1
+
+        table = self.dhtwindow.ui.nodes
+        table.setSortingEnabled(True)
+        table.setEditTriggers(QAbstractItemView.EditTrigger.NoEditTriggers)
+        table.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
+        table.horizontalHeader().setSectionResizeMode(0, QHeaderView.ResizeMode.Interactive)
+        row_cnt = 0
+        for item in self.dhtanalyse.nodes:
+            table.insertRow(row_cnt)
+            table.setItem(row_cnt, 0, QTableWidgetItem(str(item[0])))
+            table.setItem(row_cnt, 1, QTableWidgetItem(str(item[1])))
+            table.setItem(row_cnt, 2, QTableWidgetItem(str(item[2])))
+            row_cnt += 1
+
+        table = self.dhtwindow.ui.peers
+        table.setSortingEnabled(True)
+        table.setEditTriggers(QAbstractItemView.EditTrigger.NoEditTriggers)
+        table.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
+        table.horizontalHeader().setSectionResizeMode(0, QHeaderView.ResizeMode.Interactive)
+        row_cnt = 0
+        for item in self.dhtanalyse.peers:
+            table.insertRow(row_cnt)
+            table.setItem(row_cnt, 0, QTableWidgetItem(str(item[0])))
+            table.setItem(row_cnt, 1, QTableWidgetItem(str(item[1])))
+            row_cnt += 1
+
+        table = self.dhtwindow.ui.type_num
+        table.setSortingEnabled(True)
+        table.setEditTriggers(QAbstractItemView.EditTrigger.NoEditTriggers)
+        table.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
+        table.horizontalHeader().setSectionResizeMode(0, QHeaderView.ResizeMode.Interactive)
+        row_cnt = 0
+        for key in self.dhtanalyse.type.keys():
+            table.insertRow(row_cnt)
+            table.setItem(row_cnt, 0, QTableWidgetItem(str(key)))
+            table.setItem(row_cnt, 1, QTableWidgetItem(str(self.dhtanalyse.type[key])))
+            row_cnt += 1
+
+        self.dhtwindow.showMaximized()
+        self.dhtwindow.show()
+        logger.info("analyse DHT")
+
+    def _bt_info(self):
+        self.btwindow = QWidget()
+        self.btwindow.ui = BTWindow.Ui_Form()
+        self.btwindow.ui.setupUi(self.btwindow)
+
+        table = self.btwindow.ui.localport
+        table.setSortingEnabled(True)
+        table.setEditTriggers(QAbstractItemView.EditTrigger.NoEditTriggers)
+        table.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
+        table.horizontalHeader().setSectionResizeMode(0, QHeaderView.ResizeMode.Interactive)
+        row_cnt = 0
+        for key in self.bittorrentanalyse.localport.keys():
+            table.insertRow(row_cnt)
+            table.setItem(row_cnt, 0, QTableWidgetItem(str(key)))
+            table.setItem(row_cnt, 1, QTableWidgetItem(str(self.bittorrentanalyse.localport[key])))
+            row_cnt += 1
+
+        table = self.btwindow.ui.remote_ipport
+        table.setSortingEnabled(True)
+        table.setEditTriggers(QAbstractItemView.EditTrigger.NoEditTriggers)
+        table.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
+        table.horizontalHeader().setSectionResizeMode(0, QHeaderView.ResizeMode.Interactive)
+        row_cnt = 0
+        for key in self.bittorrentanalyse.remote_ipport.keys():
+            table.insertRow(row_cnt)
+            table.setItem(row_cnt, 0, QTableWidgetItem("(%s,%s)" % (str(key[0]), str(key[1]))))
+            table.setItem(row_cnt, 1, QTableWidgetItem(str(self.bittorrentanalyse.remote_ipport[key])))
+            row_cnt += 1
+
+        table = self.btwindow.ui.up_down
+        table.setSortingEnabled(True)
+        table.setEditTriggers(QAbstractItemView.EditTrigger.NoEditTriggers)
+        table.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
+        table.horizontalHeader().setSectionResizeMode(0, QHeaderView.ResizeMode.Interactive)
+        table.insertRow(0)
+        table.setItem(0, 0, QTableWidgetItem("up"))
+        table.setItem(0, 1, QTableWidgetItem(str(self.bittorrentanalyse.up)))
+        table.insertRow(1)
+        table.setItem(1, 0, QTableWidgetItem("down"))
+        table.setItem(1, 1, QTableWidgetItem(str(self.bittorrentanalyse.down)))
+
+        table = self.btwindow.ui.type_num
+        table.setSortingEnabled(True)
+        table.setEditTriggers(QAbstractItemView.EditTrigger.NoEditTriggers)
+        table.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
+        table.horizontalHeader().setSectionResizeMode(0, QHeaderView.ResizeMode.Interactive)
+        row_cnt = 0
+        keys = self.bittorrentanalyse.type.keys()
+        keys = sorted(keys)
+        for key in keys:
+            table.insertRow(row_cnt)
+            table.setItem(row_cnt, 0, QTableWidgetItem(str(key)))
+            if key in typedict.keys():
+                table.setItem(row_cnt, 1, QTableWidgetItem(typedict[key]))
+            else:
+                table.setItem(row_cnt, 1, QTableWidgetItem('Unknown'))
+            table.setItem(row_cnt, 2, QTableWidgetItem(str(self.bittorrentanalyse.type[key])))
+            row_cnt += 1
+
+        self.btwindow.showMaximized()
+        self.btwindow.show()
+        logger.info("analyse BT")
 
     def clear_all_info(self):
         self.pkt_dict = dict()

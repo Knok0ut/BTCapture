@@ -1,5 +1,6 @@
 tmp/
-test.py
+test*.py
+*.log
 */__pycache__/
 .idea/
 log/
