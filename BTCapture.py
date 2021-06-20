@@ -220,7 +220,7 @@ class Window(QMainWindow):
         if hasattr(pkt, "bt-dht"):
             info = print_dht_info(pkt, self.dhtanalyse)
         if hasattr(pkt, "bittorrent"):
-            info = print_bittorrent_info(pkt, self.bittorrentanalyse)
+            info = print_bittorrent_info(pkt, self.bittorrentanalyse, self.bl.get_black_list())
         if hasattr(pkt, "ip"):
             if hasattr(pkt, "http") or hasattr(pkt, "bt-dht") or hasattr(pkt, "bittorrent"):
                 if info and info != "ICMP":
@@ -625,11 +625,13 @@ class Window(QMainWindow):
         return file_path
 
     def start_new_job(self):
-        self.stop()
-        self.start()
         file_path = self._select_file()
         if "ok" in bclient.torrents.add(file_path).lower():
-            self.info("成功下载任务，开始重新捕获数据包")
+            self.stop()
+            self.start()
+            self.info("成功开始下载任务，开始重新捕获数据包")
+        else:
+            self.warn("未成功开始任务")
 
     def warn(self, msg: str, parent=None, title=""):
         if not parent:

@@ -5,8 +5,6 @@ import re
 from pyshark.packet.packet import Packet
 from util.AC import *
 
-sensitivelist = ['Fast', 'WXR', 'BTCapture']
-
 def strlist_tohexlist(strl: list):
     hexl = []
     for string in strl:
@@ -45,7 +43,7 @@ class BittorrentAnalyse():
 
 
 
-def print_bittorrent_info(pkt: Packet, analyse: BittorrentAnalyse):
+def print_bittorrent_info(pkt: Packet, analyse: BittorrentAnalyse, l: list):
     if hasattr(pkt, 'ip'):
         if pkt.send:
             analyse.up += 1
@@ -86,7 +84,10 @@ def print_bittorrent_info(pkt: Packet, analyse: BittorrentAnalyse):
                 info += str(layer.msg).split(', ', 1)[1] + ' '
                 if int(layer.msg_type) == 7:
                     if hasattr(layer, 'piece_data'):
-                        print('是否含有敏感词：' + str(AC(strlist_tohexlist(sensitivelist), str(layer.piece_data).replace(':', ''))))
+                        # print(l)
+                        # if AC(strlist_tohexlist(l), str(layer.piece_data).replace(':', '')):
+
+                        print('是否含有敏感词：' + str(AC(strlist_tohexlist(l), str(layer.piece_data).replace(':', ''))))
                     else:
                         print('Malformed Piece Packet')
                 if int(layer.msg_type) in analyse.type.keys():

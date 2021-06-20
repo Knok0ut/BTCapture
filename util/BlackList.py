@@ -29,8 +29,10 @@ class BlackList:
             return False
 
     def get_black_list(self):
-        res = document.find_one({"_id": black_id})[record_id]
-        return res
+        res = document.find_one({"_id": black_id})
+        if res is not None:
+            return res[record_id]
+        return None
 
     def remove(self, item: str):
         res: list = self.get_black_list()
