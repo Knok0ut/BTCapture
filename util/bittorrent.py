@@ -4,6 +4,9 @@ import os
 import re
 from pyshark.packet.packet import Packet
 from util.AC import *
+from util.Log import getlogger
+
+logger = getlogger()
 
 def strlist_tohexlist(strl: list):
     hexl = []
@@ -58,7 +61,7 @@ def print_bittorrent_info(pkt: Packet, analyse: BittorrentAnalyse, l: list):
             else:
                 analyse.localport[pkt.tcp.dstport] = 1
         else:
-            print('bug1')
+            logger.debug('\nPromiscuous Mode is on\n')
     elif hasattr(pkt, 'ipv6'):
         if pkt.send:
             analyse.up += 1
@@ -73,23 +76,23 @@ def print_bittorrent_info(pkt: Packet, analyse: BittorrentAnalyse, l: list):
             else:
                 analyse.localport[pkt.tcp.dstport] = 1
         else:
-            print('bug1')
+            logger.debug('\nPromiscuous Mode is on\n')
     else:
-        print('bug2')
+        logger.debug('\nNeither ipv4 nor ipv6\n')
     info = ''
     for layer in pkt.layers:
         if layer.layer_name == 'bittorrent':
             if hasattr(layer, 'msg_type'):
-                print('message_type:%d' % int(layer.msg_type))
+                # print('message_type:%d' % int(layer.msg_type))
                 info += str(layer.msg).split(', ', 1)[1] + ' '
                 if int(layer.msg_type) == 7:
                     if hasattr(layer, 'piece_data'):
                         # print(l)
                         # if AC(strlist_tohexlist(l), str(layer.piece_data).replace(':', '')):
-
-                        print('是否含有敏感词：' + str(AC(strlist_tohexlist(l), str(layer.piece_data).replace(':', ''))))
+                        if str(AC(strlist_tohexlist(l), str(layer.piece_data).replace(':', ''))):
+                            logger.info('\nSensitive word(s) included!\n')
                     else:
-                        print('Malformed Piece Packet')
+                        logger.info('\nMalformed Piece Packet\n')
                 if int(layer.msg_type) in analyse.type.keys():
                     analyse.type[int(layer.msg_type)] += 1
                 else:
@@ -98,20 +101,19 @@ def print_bittorrent_info(pkt: Packet, analyse: BittorrentAnalyse, l: list):
                 if hasattr(layer, 'continuous_data'):
                     info += 'Continuation data '
                     analyse.type[-2] += 1
-                    print('continue data:' + str(layer.continuous_data).replace(':', ''))
+                    # print('continue data:' + str(layer.continuous_data).replace(':', ''))
                 else:
                     try:
                         info += 'Handshake '
                         info_hash = str(layer.info_hash).replace(':', '')
                         peer_id = str(layer.peer_id).replace(':', '')
                         analyse.type[-1] += 1
-                        print('info hash:%s\npeer id:%s' % (info_hash, peer_id))
+                        # print('info hash:%s\npeer id:%s' % (info_hash, peer_id))
                     except AttributeError as e:
-                        print(pkt)
+                        # print(pkt)
                         info += 'Bittorrent '
                         analyse.type[-3] += 1
-    print(info)
-    print()
+    logger.info('\n' + info + '\n')
     return info
 
 

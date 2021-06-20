@@ -1,7 +1,10 @@
 import pyshark
 from pyshark.packet.packet import Packet
 from bencode import *
-# todo:DHT报文类型统计 端口统计 nodes/peers统计？
+from util.Log import getlogger
+
+logger = getlogger()
+
 class DHTAnalyse():
     def __init__(self):
         self.requested_ipport = dict()
@@ -23,7 +26,7 @@ def handle_nodes(nodes: bytes, analyse: DHTAnalyse):
         port = int.from_bytes(nodes[4:6], byteorder='big')
         nodes = nodes[6:]
         counter += 1
-        print('Node %d:\nid:%s\nip:%s\nport:%d'%(counter, id, ip, port))
+        # print('Node %d:\nid:%s\nip:%s\nport:%d'%(counter, id, ip, port))
         analyse.nodes.add((id, ip, port))
     return counter
 
@@ -36,7 +39,7 @@ def handle_peers(peers: list, analyse: DHTAnalyse):
         ip = ip[:-1]
         port = int.from_bytes(peer[4:6], byteorder='big')
         counter += 1
-        print('Peer %d:\nip:%s\nport:%d' % (counter, ip, port))
+        # print('Peer %d:\nip:%s\nport:%d' % (counter, ip, port))
         analyse.peers.add((ip, port))
     return counter
     #  
@@ -66,14 +69,14 @@ def handle_dht_message(dht_message: dict, analyse: DHTAnalyse, src_ipport, dst_i
             analyse.requested_ipport[dst_ipport] = 1
         if q_type == b'find_node':
             a = dht_message[b'a']
-            print('Find_node:\nid:' + a[b'id'].hex() + '\ntarget:' + a[b'target'].hex() + '\n')
+            # print('Find_node:\nid:' + a[b'id'].hex() + '\ntarget:' + a[b'target'].hex() + '\n')
             return 'Request: find_node'
         elif q_type == b'get_peers':
             a = dht_message[b'a']
-            print('Get_peers:\nid:' + a[b'id'].hex() + '\ninfo_hash:' + a[b'info_hash'].hex() + '\n')
+            # print('Get_peers:\nid:' + a[b'id'].hex() + '\ninfo_hash:' + a[b'info_hash'].hex() + '\n')
             return 'Request: get_peers'
         else:
-            print(q_type.decode().capitalize() + '\n')
+            # print(q_type.decode().capitalize() + '\n')
             return 'Request: %s' % q_type.decode()
             #ping或announce_peer，暂不处理
     else:
@@ -84,7 +87,7 @@ def handle_dht_message(dht_message: dict, analyse: DHTAnalyse, src_ipport, dst_i
         else:
             analyse.response_ipport[src_ipport] = 1
         id = r[b'id']
-        print('Response:\nId:%s'%id.hex())
+        # print('Response:\nId:%s'%id.hex())
         nodes_num = 0
         peers_num =  0
         if b'nodes' in r.keys():
@@ -92,29 +95,32 @@ def handle_dht_message(dht_message: dict, analyse: DHTAnalyse, src_ipport, dst_i
         if b'values' in r.keys():
             peers_num = handle_peers(r[b'values'], analyse)
         # print(dht_message)
-        print('Totol:%d node(s), %d peer(s)\n'%(nodes_num, peers_num))
+        # print('Totol:%d node(s), %d peer(s)\n'%(nodes_num, peers_num))
         return 'Response: %d node(s), %d peer(s)' % (nodes_num, peers_num)
 
 def print_dht_info(pkt: Packet, analyse: DHTAnalyse):
     if hasattr(pkt, 'icmp'):
-        print(pkt.icmp)
+        logger.debug('\n' + str(pkt.icmp) + '\n')
         return 'ICMP'
     else:
-        print('DHT')
+        logger_info = '\n' + 'DHT'
         if hasattr(pkt, 'ip'):
-            print(pkt.ip.src + ':' + pkt.udp.srcport + '->' + pkt.ip.dst + ':' + pkt.udp.dstport)
+            logger_info += '\n' + pkt.ip.src + ':' + pkt.udp.srcport + '->' + pkt.ip.dst + ':' + pkt.udp.dstport
             src_ipport = (pkt.ip.src, pkt.udp.srcport)
             dst_ipport = (pkt.ip.dst, pkt.udp.dstport)
         elif hasattr(pkt, 'ipv6'):
-            print(pkt.ipv6.src + ':' + pkt.udp.srcport + '->' + pkt.ipv6.dst + ':' + pkt.udp.dstport)
+            logger_info += '\n' + pkt.ipv6.src + ':' + pkt.udp.srcport + '->' + pkt.ipv6.dst + ':' + pkt.udp.dstport
             src_ipport = (pkt.ipv6.src, pkt.udp.srcport)
             dst_ipport = (pkt.ipv6.dst, pkt.udp.dstport)
         try:
-            return handle_dht_message(bdecode(bytes.fromhex(pkt.udp.payload.raw_value)), analyse, src_ipport, dst_ipport)
+            info = handle_dht_message(bdecode(bytes.fromhex(pkt.udp.payload.raw_value)), analyse, src_ipport, dst_ipport)
+            logger_info += '\n' + info
+            logger.info(logger_info + '\n')
+            return info
         except KeyError as e1:
-            print(str(e1) + '\n')
+            logger.debug('\n' + str(e1) + '\n')
         except BTFailure as e2:
-            print('Malformed DHT Packet\n')
+            logger.debug('\nMalformed DHT Packet\n')
 
 # if __name__ == '__main__':
 #     cap = pyshark.LiveCapture(interface='WLAN', display_filter = 'udp.port == 51934', decode_as={'udp.port == 51934' : 'bt-dht'})
