@@ -1,7 +1,7 @@
 import sys
 from ui import MainWindow, SavePacketsDialog, OpenDocumentDialog, BlackListDialog
 from PyQt6.QtWidgets import QApplication, QMainWindow, QHeaderView, QTableWidgetItem, QTreeWidgetItem, QMessageBox, \
-    QDialog, QListWidgetItem, QWidget, QAbstractItemView,,QDialog, QListWidgetItem, QFileDialog, QMenu
+    QDialog, QListWidgetItem, QWidget, QAbstractItemView, QDialog, QListWidgetItem, QFileDialog, QMenu
 from PyQt6.QtCore import QThread, pyqtSignal
 from PyQt6.QtCore import QThread, pyqtSignal, Qt, QPoint, QModelIndex
 from PyQt6 import QtCore
@@ -29,8 +29,8 @@ logger = getlogger()
 logger.info("app opened")
 bclient = qbittorrentapi.Client(host='localhost:8080', username='admin', password='adminadmin')
 typedict = {-3: 'Bittorrent', -2: 'Continuation Data', -1: 'Handshake',
-            0: 'Choke', 1: 'Unchoke', 2: 'Interested', 3:'Not Interested',
-            4: 'Have', 5: 'Bitfield', 6: 'Request', 7:'Piece', 8: 'Cancel',
+            0: 'Choke', 1: 'Unchoke', 2: 'Interested', 3: 'Not Interested',
+            4: 'Have', 5: 'Bitfield', 6: 'Request', 7: 'Piece', 8: 'Cancel',
             9: 'Port', 13: 'Suggest Piece', 14: 'Have All', 15: 'Have None',
             16: 'Reject Request', 17: 'Allowed Fast', 20: 'Extended'}
 
@@ -367,7 +367,7 @@ class Window(QMainWindow):
         # index = self.black_list_dialog.ui.listWidget.indexAt(QCursor.pos()).column()
         # if index > -1:
         #     text = self.black_list_dialog.ui.listWidget.item(index).text()
-            # self._del_black_list(text)
+        # self._del_black_list(text)
         self.bl.remove(text)
         self._show_black_list()
 
@@ -447,7 +447,6 @@ class Window(QMainWindow):
         self.trackerwindow.showMaximized()
         self.trackerwindow.show()
         logger.info("analyse Tracker")
-
 
     def _dht_info(self):
         self.dhtwindow = QWidget()
