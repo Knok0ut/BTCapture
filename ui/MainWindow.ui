@@ -50,6 +50,9 @@
        <property name="tabletTracking">
         <bool>true</bool>
        </property>
+       <property name="lineWidth">
+        <number>1</number>
+       </property>
        <property name="editTriggers">
         <set>QAbstractItemView::NoEditTriggers</set>
        </property>
@@ -63,7 +66,7 @@
         <bool>true</bool>
        </property>
        <attribute name="horizontalHeaderStretchLastSection">
-        <bool>false</bool>
+        <bool>true</bool>
        </attribute>
        <column>
         <property name="text">
@@ -143,6 +146,8 @@
     <addaction name="actionrestoreFromDB"/>
     <addaction name="actionanalyse"/>
     <addaction name="actionclear"/>
+    <addaction name="actionnewTorrentJob"/>
+    <addaction name="actionblackList"/>
    </widget>
    <addaction name="menu"/>
   </widget>
@@ -175,6 +180,16 @@
   <action name="actionanalyse">
    <property name="text">
     <string>analyse</string>
+   </property>
+  </action>
+  <action name="actionnewTorrentJob">
+   <property name="text">
+    <string>newTorrentJob</string>
+   </property>
+  </action>
+  <action name="actionblackList">
+   <property name="text">
+    <string>blackList</string>
    </property>
   </action>
  </widget>
