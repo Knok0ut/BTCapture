@@ -1,8 +1,10 @@
 import sys
-from ui import MainWindow, SavePacketsDialog, OpenDocumentDialog
+from ui import MainWindow, SavePacketsDialog, OpenDocumentDialog, BlackListDialog
 from PyQt6.QtWidgets import QApplication, QMainWindow, QHeaderView, QTableWidgetItem, QTreeWidgetItem, QMessageBox, \
-    QDialog, QListWidgetItem
-from PyQt6.QtCore import QThread, pyqtSignal
+    QDialog, QListWidgetItem, QFileDialog, QMenu
+from PyQt6.QtCore import QThread, pyqtSignal, Qt, QPoint, QModelIndex
+from PyQt6 import QtCore
+from PyQt6.QtGui import QAction, QCursor
 from ui.HexView import HexView
 import pymongo
 import gridfs
@@ -14,6 +16,8 @@ from util.dht import *
 from util.tracker import *
 from util.bittorrent import *
 from util.Log import getlogger
+from util.BlackList import BlackList
+import qbittorrentapi
 
 client = pymongo.MongoClient('mongodb://localhost:27017')
 db = client["BTCapture"]
@@ -21,6 +25,7 @@ c_set = db["PacketDict"]
 fs = gridfs.GridFS(db, "PacketDict")
 logger = getlogger()
 logger.info("app opened")
+bclient = qbittorrentapi.Client(host='localhost:8080', username='admin', password='adminadmin')
 
 
 class Capture(QThread):
@@ -69,6 +74,7 @@ class Window(QMainWindow):
         self.trackeranalyse = None
         self.dhtanalyse = None
         self.bittorrentanalyse = None
+        self.bl = BlackList()
         self.pkt_dict = dict()
         self.ui = MainWindow.Ui_MainWindow()
         self.ui.setupUi(self)
@@ -79,6 +85,7 @@ class Window(QMainWindow):
         self.go_btn = self.ui.goBtn
         self.go_btn.clicked.connect(self.do_filter)
         self.ui.tableWidget.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
+        self.ui.tableWidget.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.ResizeToContents)
         self.table = self.ui.tableWidget
         self.tree = self.ui.treeWidget
         self.menu = self.ui.menu
@@ -94,6 +101,8 @@ class Window(QMainWindow):
         self.ui.actionrestoreFromDB.setEnabled(True)
         self.ui.actionclear.triggered.connect(self.clear_all_info)
         self.ui.actionclear.setEnabled(False)
+        self.ui.actionnewTorrentJob.triggered.connect(self.start_new_job)
+        self.ui.actionblackList.triggered.connect(self.black_list)
         self.is_running = False
         self.time = None
         self.current_pkt = None
@@ -172,7 +181,10 @@ class Window(QMainWindow):
         self.table.setSortingEnabled(False)
         self.table.insertRow(row_cnt)
         for idx, item in enumerate(ls):
-            self.table.setItem(row_cnt, idx, QTableWidgetItem(str(item)))
+            print(type(item), end=" ")
+            i = QTableWidgetItem()
+            i.setData(Qt.ItemDataRole.DisplayRole, item)
+            self.table.setItem(row_cnt, idx, i)
         self.table.setSortingEnabled(tmp)
 
     def deal_with_pkt(self, pkt: Packet):
@@ -187,27 +199,30 @@ class Window(QMainWindow):
             if hasattr(pkt, "http") or hasattr(pkt, "bt-dht") or hasattr(pkt, "bittorrent"):
                 if info and info != "ICMP":
                     self.add_row(
-                        [pkt.number, "{:.6f}".format(float(pkt.sniff_timestamp) - self.time), pkt.ip.src, pkt.ip.dst,
-                         pkt.highest_layer.split("_RAW")[0], pkt.length, info])
+                        [int(pkt.number), "{:.6f}".format(float(pkt.sniff_timestamp) - self.time), str(pkt.ip.src),
+                         str(pkt.ip.dst),
+                         pkt.highest_layer.split("_RAW")[0], int(pkt.length), info])
                 else:
                     pass
             else:
                 self.add_row(
-                    [pkt.number, "{:.6f}".format(float(pkt.sniff_timestamp) - self.time), pkt.ip.src, pkt.ip.dst,
-                     pkt.highest_layer.split("_RAW")[0], pkt.length, pkt.frame_info])
+                    [int(pkt.number), "{:.6f}".format(float(pkt.sniff_timestamp) - self.time), str(pkt.ip.src),
+                     str(pkt.ip.dst),
+                     pkt.highest_layer.split("_RAW")[0], int(pkt.length), pkt.frame_info])
         elif hasattr(pkt, "ipv6"):
             if hasattr(pkt, "http") or hasattr(pkt, "bt-dht") or hasattr(pkt, "bittorrent"):
                 if info and info != "ICMP":
                     self.add_row(
-                        [pkt.number, "{:.6f}".format(float(pkt.sniff_timestamp) - self.time), pkt.ipv6.src,
-                         pkt.ipv6.dst,
-                         pkt.highest_layer.split("_RAW")[0], pkt.length, info])
+                        [int(pkt.number), "{:.6f}".format(float(pkt.sniff_timestamp) - self.time), str(pkt.ipv6.src),
+                         str(pkt.ipv6.dst),
+                         pkt.highest_layer.split("_RAW")[0], int(pkt.length), info])
                 else:
                     pass
             else:
                 self.add_row(
-                    [pkt.number, "{:.6f}".format(float(pkt.sniff_timestamp) - self.time), pkt.ipv6.src, pkt.ipv6.dst,
-                     pkt.highest_layer.split("_RAW")[0], pkt.length, pkt.frame_info])
+                    [int(pkt.number), "{:.6f}".format(float(pkt.sniff_timestamp) - self.time), str(pkt.ipv6.src),
+                     str(pkt.ipv6.dst),
+                     pkt.highest_layer.split("_RAW")[0], int(pkt.length), pkt.frame_info])
         else:
             print("no attribute ip/ipv6")
 
@@ -271,21 +286,80 @@ class Window(QMainWindow):
         self.ui.actionsaveToDB.setEnabled(True)
         logger.info(f"restore packets from data base, document name: {name}")
 
+    def black_list(self):
+        self.black_list_dialog = QDialog()
+        self.black_list_dialog.ui = BlackListDialog.Ui_Dialog()
+        self.black_list_dialog.ui.setupUi(self.black_list_dialog)
+        self.black_list_dialog.ui.add.clicked.connect(self._add_black_list)
+        self.black_list_dialog.ui.search.clicked.connect(self._search_black_list)
+        self.black_list_dialog.ui.refreshFromServer.clicked.connect(self._refresh_black_list)
+        self.black_list_dialog.ui.listWidget.setContextMenuPolicy(Qt.ContextMenuPolicy.CustomContextMenu)
+        self.black_list_dialog.ui.listWidget.customContextMenuRequested[QPoint].connect(self._list_menu)
+        self._show_black_list()
+        self.black_list_dialog.show()
+
+    # def eventFilter(self, source, event):
+    #     if event.type() == QtCore.QEvent.Type.ContextMenu and self.black_list_dialog is not None and \
+    #             self.black_list_dialog.ui is not None and source is self.black_list_dialog.ui.listWidget:
+    #         menu = QMenu()
+    #         action = QAction()
+    #         action.setObjectName(u"删除")
+    #         action.triggered.connect(self._del_black_list)
+    #         menu.addAction(action)
+    #         menu.exec(event.globalPos())
+    #         return True
+    #     else:
+    #         return super().eventFilter(source, event)
+
+    def _search_black_list(self):
+        pass
+
+    def _list_menu(self, pos):
+        menu = QMenu(self.black_list_dialog)
+        action = QAction(self.black_list_dialog)
+        action.setObjectName("delete")
+        action.setText("删除")
+        menu.addAction(action)
+        action.triggered.connect(self._del_black_list)
+        menu.show()
+        menu.exec(QCursor.pos())
+
+    # menu.exec(QCursor.pos())
+
+    def _add_black_list(self):
+        text = self.black_list_dialog.ui.lineEdit.text()
+        text = text.strip()
+        if text != "":
+            self.bl.add(text)
+            self._show_black_list()
+        else:
+            self.warn("输入框没有任何输入")
+
+    def _del_black_list(self):
+        text = self.black_list_dialog.ui.listWidget.currentItem().text().strip()
+        # index = self.black_list_dialog.ui.listWidget.indexAt(QCursor.pos()).column()
+        # if index > -1:
+        #     text = self.black_list_dialog.ui.listWidget.item(index).text()
+            # self._del_black_list(text)
+        self.bl.remove(text)
+        self._show_black_list()
+
+    def _refresh_black_list(self):
+        self.bl.refresh_from_server()
+        self._show_black_list()
+
+    def _show_black_list(self):
+        self.black_list_dialog.ui.listWidget.clear()
+        ls = self.bl.get_black_list()
+        if ls:
+            for item in ls:
+                self.black_list_dialog.ui.listWidget.addItem(QListWidgetItem(item))
+
     def clear_all_info(self):
         self.pkt_dict = dict()
         self.tree.clear()
         self.table.setRowCount(0)
         self.time = 0
-
-    # def show_pretty_detail(self):
-    #     if self.current_pkt:
-    #         # loop = asyncio.ProactorEventLoop()
-    #         # asyncio.set_event_loop(loop)
-    #         # c = pyshark.InMemCapture()
-    #         # print(self.current_pkt.get_raw_packet())
-    #         pkt = self.inMemCapture.parse_packet(self.current_pkt.get_raw_packet())
-    #         self.show_pkt_tree(pkt)
-    # c.close()
 
     def show_detail(self, row, column):
         item = self.table.item(row, 0)
@@ -299,6 +373,8 @@ class Window(QMainWindow):
         self.show_pkt_tree(pkt)
         if hasattr(pkt, "data") and hasattr(pkt.data, "data"):
             self.hex_view.generateView(bytes.fromhex(pkt.data.data))
+        else:
+            self.hex_view.generateView(b"")
 
     def show_pkt_tree(self, pkt: Packet):
         self.tree.clear()
@@ -328,6 +404,18 @@ class Window(QMainWindow):
         logger.info(f"set filter to: {f}")
         self.capture.filter = f
         self.start()
+
+    def _select_file(self):
+        file_path = QFileDialog.getOpenFileName(self, "", os.getcwd())
+        print(file_path)
+        return file_path
+
+    def start_new_job(self):
+        self.stop()
+        self.start()
+        file_path = self._select_file()
+        if "ok" in bclient.torrents.add(file_path).lower():
+            self.info("成功下载任务，开始重新捕获数据包")
 
     def warn(self, msg: str, parent=None, title=""):
         if not parent:

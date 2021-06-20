@@ -22,3 +22,638 @@
 2021-06-16 23:18:49,921 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:23] - INFO: app opened
 2021-06-16 23:18:56,503 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:272] - INFO: restore packets from data base, document name: merge
 2021-06-16 23:19:06,263 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:345] - INFO: app closed
+2021-06-17 09:32:40,961 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:23] - INFO: app opened
+2021-06-17 09:32:48,091 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:335] - INFO: app closed
+2021-06-17 09:48:20,671 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:23] - INFO: app opened
+2021-06-17 09:48:21,919 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:335] - INFO: app closed
+2021-06-17 19:27:17,040 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:23] - INFO: app opened
+2021-06-17 19:27:50,542 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:318] - INFO: set filter to: 
+2021-06-17 19:27:50,696 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:155] - INFO: capture started
+2021-06-17 19:27:50,716 - E:\miniconda\lib\asyncio\proactor_events.py[line:623] - DEBUG: Using proactor: IocpProactor
+2021-06-17 19:27:50,717 - E:\miniconda\lib\asyncio\proactor_events.py[line:623] - DEBUG: Using proactor: IocpProactor
+2021-06-17 19:30:47,210 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:335] - INFO: app closed
+2021-06-17 21:27:54,865 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:23] - INFO: app opened
+2021-06-17 21:28:04,669 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:318] - INFO: set filter to: 
+2021-06-17 21:28:04,753 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:155] - INFO: capture started
+2021-06-17 21:28:04,754 - E:\miniconda\lib\asyncio\proactor_events.py[line:623] - DEBUG: Using proactor: IocpProactor
+2021-06-17 21:28:04,755 - E:\miniconda\lib\asyncio\proactor_events.py[line:623] - DEBUG: Using proactor: IocpProactor
+2021-06-17 21:29:00,481 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:167] - INFO: capture stopped
+2021-06-17 21:29:14,749 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:318] - INFO: set filter to: 
+2021-06-17 21:29:14,911 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:155] - INFO: capture started
+2021-06-17 21:29:14,913 - E:\miniconda\lib\asyncio\proactor_events.py[line:623] - DEBUG: Using proactor: IocpProactor
+2021-06-17 21:29:14,914 - E:\miniconda\lib\asyncio\proactor_events.py[line:623] - DEBUG: Using proactor: IocpProactor
+2021-06-17 21:29:55,737 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:335] - INFO: app closed
+2021-06-17 21:30:15,118 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:23] - INFO: app opened
+2021-06-17 21:30:26,983 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:318] - INFO: set filter to: 
+2021-06-17 21:30:27,029 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:155] - INFO: capture started
+2021-06-17 21:30:27,030 - E:\miniconda\lib\asyncio\proactor_events.py[line:623] - DEBUG: Using proactor: IocpProactor
+2021-06-17 21:30:27,031 - E:\miniconda\lib\asyncio\proactor_events.py[line:623] - DEBUG: Using proactor: IocpProactor
+2021-06-17 21:35:14,318 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:167] - INFO: capture stopped
+2021-06-17 21:36:57,559 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:236] - INFO: save current packets to data base, document name: full
+2021-06-17 21:42:41,748 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:335] - INFO: app closed
+2021-06-18 15:22:00,210 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:24] - INFO: app opened
+2021-06-18 15:22:09,963 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:348] - INFO: app closed
+2021-06-18 15:23:06,407 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:24] - INFO: app opened
+2021-06-18 15:23:22,480 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:24] - INFO: app opened
+2021-06-18 15:25:24,611 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:24] - INFO: app opened
+2021-06-18 15:25:56,012 - E:\miniconda\lib\site-packages\qbittorrentapi\decorators.py[line:96] - DEBUG: Not logged in...attempting login
+2021-06-18 15:25:56,013 - E:\miniconda\lib\site-packages\qbittorrentapi\request.py[line:359] - DEBUG: Parsed user URL: ParseResult(scheme='', netloc='localhost:8080', path='', params='', query='', fragment='')
+2021-06-18 15:25:56,014 - E:\miniconda\lib\site-packages\qbittorrentapi\request.py[line:370] - DEBUG: Detecting scheme for URL...
+2021-06-18 15:25:56,036 - E:\miniconda\lib\site-packages\urllib3\connectionpool.py[line:226] - DEBUG: Starting new HTTP connection (1): localhost:8080
+2021-06-18 15:25:56,073 - E:\miniconda\lib\site-packages\urllib3\connectionpool.py[line:433] - DEBUG: http://localhost:8080 "HEAD / HTTP/1.1" 200 0
+2021-06-18 15:25:56,074 - E:\miniconda\lib\site-packages\qbittorrentapi\request.py[line:384] - DEBUG: Using HTTP scheme
+2021-06-18 15:25:56,075 - E:\miniconda\lib\site-packages\qbittorrentapi\request.py[line:397] - DEBUG: Base URL: http://localhost:8080/
+2021-06-18 15:25:56,078 - E:\miniconda\lib\site-packages\urllib3\connectionpool.py[line:226] - DEBUG: Starting new HTTP connection (1): localhost:8080
+2021-06-18 15:25:56,322 - E:\miniconda\lib\site-packages\urllib3\connectionpool.py[line:433] - DEBUG: http://localhost:8080 "POST /api/v2/auth/login HTTP/1.1" 200 3
+2021-06-18 15:25:56,323 - E:\miniconda\lib\site-packages\qbittorrentapi\auth.py[line:105] - DEBUG: Login successful for user "admin"
+2021-06-18 15:25:56,323 - E:\miniconda\lib\site-packages\qbittorrentapi\auth.py[line:106] - DEBUG: SID: n0X0a62rGwsvHoVeFcRFzufLiQ1+DHpm
+2021-06-18 15:25:56,328 - E:\miniconda\lib\site-packages\urllib3\connectionpool.py[line:433] - DEBUG: http://localhost:8080 "GET /api/v2/app/webapiVersion HTTP/1.1" 200 5
+2021-06-18 15:25:56,409 - E:\miniconda\lib\site-packages\urllib3\connectionpool.py[line:433] - DEBUG: http://localhost:8080 "POST /api/v2/torrents/add HTTP/1.1" 200 3
+2021-06-18 15:29:32,715 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:349] - INFO: app closed
+2021-06-19 13:47:26,900 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:24] - INFO: app opened
+2021-06-19 13:47:50,507 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:275] - INFO: restore packets from data base, document name: test
+2021-06-19 13:48:09,472 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:275] - INFO: restore packets from data base, document name: haha
+2021-06-19 13:48:16,377 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:275] - INFO: restore packets from data base, document name: hah
+2021-06-19 13:50:11,710 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:275] - INFO: restore packets from data base, document name: full
+2021-06-19 15:56:22,496 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:24] - INFO: app opened
+2021-06-19 15:56:28,364 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:323] - INFO: set filter to: 
+2021-06-19 15:56:28,452 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:158] - INFO: capture started
+2021-06-19 15:56:28,453 - E:\miniconda\lib\asyncio\proactor_events.py[line:623] - DEBUG: Using proactor: IocpProactor
+2021-06-19 15:56:28,454 - E:\miniconda\lib\asyncio\proactor_events.py[line:623] - DEBUG: Using proactor: IocpProactor
+2021-06-19 15:56:42,395 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:323] - INFO: set filter to: 
+2021-06-19 15:56:42,444 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:158] - INFO: capture started
+2021-06-19 16:02:28,246 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:352] - INFO: app closed
+2021-06-19 16:02:46,280 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:24] - INFO: app opened
+2021-06-19 16:02:49,035 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:323] - INFO: set filter to: 
+2021-06-19 16:02:49,083 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:158] - INFO: capture started
+2021-06-19 16:02:49,084 - E:\miniconda\lib\asyncio\proactor_events.py[line:623] - DEBUG: Using proactor: IocpProactor
+2021-06-19 16:02:49,085 - E:\miniconda\lib\asyncio\proactor_events.py[line:623] - DEBUG: Using proactor: IocpProactor
+2021-06-19 16:04:17,845 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:352] - INFO: app closed
+2021-06-19 16:05:47,084 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:24] - INFO: app opened
+2021-06-19 16:05:49,691 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:323] - INFO: set filter to: 
+2021-06-19 16:05:49,736 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:158] - INFO: capture started
+2021-06-19 16:05:49,736 - E:\miniconda\lib\asyncio\proactor_events.py[line:623] - DEBUG: Using proactor: IocpProactor
+2021-06-19 16:05:49,738 - E:\miniconda\lib\asyncio\proactor_events.py[line:623] - DEBUG: Using proactor: IocpProactor
+2021-06-19 16:06:12,997 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:323] - INFO: set filter to: 
+2021-06-19 16:06:13,041 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:158] - INFO: capture started
+2021-06-19 16:10:43,466 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:323] - INFO: set filter to: 
+2021-06-19 16:10:43,513 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:158] - INFO: capture started
+2021-06-19 16:11:29,609 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:323] - INFO: set filter to: 
+2021-06-19 16:11:29,655 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:158] - INFO: capture started
+2021-06-19 16:11:29,656 - E:\miniconda\lib\asyncio\proactor_events.py[line:623] - DEBUG: Using proactor: IocpProactor
+2021-06-19 16:11:29,657 - E:\miniconda\lib\asyncio\proactor_events.py[line:623] - DEBUG: Using proactor: IocpProactor
+2021-06-19 16:11:33,771 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:170] - INFO: capture stopped
+2021-06-19 16:11:35,007 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:158] - INFO: capture started
+2021-06-19 16:11:35,009 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:43] - DEBUG: current filter: http or bt-dht or bittorrent
+2021-06-19 16:11:35,009 - E:\miniconda\lib\asyncio\proactor_events.py[line:623] - DEBUG: Using proactor: IocpProactor
+2021-06-19 16:11:36,814 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:352] - INFO: app closed
+2021-06-19 16:13:04,596 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:24] - INFO: app opened
+2021-06-19 16:13:08,178 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:323] - INFO: set filter to: 
+2021-06-19 16:13:08,221 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:158] - INFO: capture started
+2021-06-19 16:13:08,223 - E:\miniconda\lib\asyncio\proactor_events.py[line:623] - DEBUG: Using proactor: IocpProactor
+2021-06-19 16:13:08,224 - E:\miniconda\lib\asyncio\proactor_events.py[line:623] - DEBUG: Using proactor: IocpProactor
+2021-06-19 16:13:29,660 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:352] - INFO: app closed
+2021-06-19 17:25:01,856 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:24] - INFO: app opened
+2021-06-19 17:25:06,504 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:323] - INFO: set filter to: 
+2021-06-19 17:25:06,553 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:158] - INFO: capture started
+2021-06-19 17:25:06,554 - E:\miniconda\lib\asyncio\proactor_events.py[line:623] - DEBUG: Using proactor: IocpProactor
+2021-06-19 17:25:06,555 - E:\miniconda\lib\asyncio\proactor_events.py[line:623] - DEBUG: Using proactor: IocpProactor
+2021-06-19 17:25:48,914 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:170] - INFO: capture stopped
+2021-06-19 17:26:23,980 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:239] - INFO: save current packets to data base, document name: test.txt
+2021-06-19 17:46:04,049 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:352] - INFO: app closed
+2021-06-19 19:43:27,050 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:24] - INFO: app opened
+2021-06-19 19:43:33,567 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:324] - INFO: set filter to: ip
+2021-06-19 19:43:33,630 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:158] - INFO: capture started
+2021-06-19 19:43:33,631 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:43] - DEBUG: current filter: ip
+2021-06-19 19:43:33,631 - E:\miniconda\lib\asyncio\proactor_events.py[line:623] - DEBUG: Using proactor: IocpProactor
+2021-06-19 19:43:35,366 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:35,628 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:35,636 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:35,637 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:35,637 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:35,637 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:35,645 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:35,645 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:35,882 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:35,898 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:35,909 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:35,909 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:35,911 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:35,913 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:35,914 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:35,915 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:35,928 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:35,928 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:35,929 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:35,929 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:35,932 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:35,943 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:35,944 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:35,945 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:35,946 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:35,946 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:35,947 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:35,949 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:35,949 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:35,950 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:36,918 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:36,931 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:36,932 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:36,932 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:36,932 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:36,933 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:36,933 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:36,943 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:36,962 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:37,171 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:37,183 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:37,183 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:37,184 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:37,184 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:37,185 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:37,187 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:37,197 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:37,198 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:37,199 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:37,435 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:37,445 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:37,445 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:37,446 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:37,448 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:37,448 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:37,449 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:37,687 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:37,699 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:37,700 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:37,701 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:37,701 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:37,702 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:37,704 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:37,705 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:37,707 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:37,717 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:37,939 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:37,952 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:38,190 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:38,203 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:38,204 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:38,204 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:38,205 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:38,205 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:38,206 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:38,219 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:38,454 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:38,466 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:38,467 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:38,467 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:38,468 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:38,468 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:38,469 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:38,481 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:38,482 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:38,482 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:38,482 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:38,483 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:38,484 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:39,220 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:39,231 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:39,232 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:39,232 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:39,233 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:39,233 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:39,234 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:39,247 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:39,247 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:39,248 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:39,248 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:39,249 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:39,485 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:39,497 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:39,497 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:39,498 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:39,498 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:39,749 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:40,014 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:40,027 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:40,265 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:40,277 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:40,278 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:40,278 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:40,280 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:40,281 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:40,282 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:40,284 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:40,296 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:40,297 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:40,299 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:40,299 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:40,300 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:40,301 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:40,303 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:40,305 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:40,307 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:40,308 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:40,318 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:40,319 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:40,321 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:40,321 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:40,529 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:40,540 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:40,540 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:40,541 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:40,541 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:40,542 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:40,782 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,049 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,061 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,062 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,063 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,063 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,064 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,065 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,088 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,101 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,102 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,102 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,103 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,105 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,133 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,147 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,148 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,149 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,150 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,152 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,162 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,165 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,166 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,166 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,167 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,167 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,176 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,176 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,365 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,380 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,381 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,381 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,496 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,509 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,510 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,510 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,511 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,514 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,515 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,515 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,518 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,529 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,532 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,533 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,533 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,533 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,533 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,534 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,647 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,648 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,649 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,653 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,664 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,667 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,667 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,669 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,670 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,674 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,686 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,690 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,690 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,691 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,692 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,693 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,708 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,709 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,710 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,724 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,725 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,726 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,727 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,730 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,731 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,734 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,746 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,747 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,752 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,752 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,753 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,755 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,755 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,756 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,757 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,763 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,775 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,775 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,780 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,781 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,782 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,784 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,785 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,785 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,798 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,799 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,800 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,801 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,801 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,803 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,804 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,805 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,808 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,818 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,820 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,824 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,824 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,825 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,826 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,826 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,828 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,829 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,843 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,844 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,845 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,846 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,849 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,849 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,853 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,861 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,863 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,881 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,893 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,894 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,895 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,896 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,897 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,898 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,913 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,915 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,916 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,918 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,919 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,920 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,920 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,937 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,938 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,938 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,939 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,954 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,955 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,956 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,957 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,958 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,973 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,973 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,975 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,976 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,977 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,981 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,993 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,994 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:41,999 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:42,000 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:42,000 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:42,001 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:42,002 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:42,002 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:42,018 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:42,018 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:42,019 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:42,020 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:42,046 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:42,064 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:42,065 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:42,078 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:42,080 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:42,081 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:42,081 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:42,082 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:42,083 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:42,099 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:42,099 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:42,116 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:42,118 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:42,119 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:42,120 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:42,136 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:42,136 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:42,151 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:42,151 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:42,153 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:42,154 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:42,155 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:42,159 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:42,171 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:42,173 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:42,180 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:42,180 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:42,181 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:42,182 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:42,183 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:42,184 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:42,185 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:42,201 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:42,202 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:42,202 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:42,203 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:42,204 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:42,205 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:42,209 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:42,226 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:42,227 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:42,228 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:42,228 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:42,229 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:42,231 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:42,236 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:42,237 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:42,250 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:42,251 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:42,255 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:42,255 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:42,256 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:42,257 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:42,258 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:42,259 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:42,271 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:42,272 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:42,272 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:42,273 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:42,275 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:42,275 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:42,280 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:42,290 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:42,291 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+2021-06-19 19:43:42,294 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:182] - INFO: get a packet
+
+2021-06-19 19:51:53,741 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:24] - INFO: app opened
+2021-06-19 19:52:05,809 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:323] - INFO: set filter to: 
+2021-06-19 19:52:05,858 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:158] - INFO: capture started
+2021-06-19 19:52:05,859 - E:\miniconda\lib\asyncio\proactor_events.py[line:623] - DEBUG: Using proactor: IocpProactor
+2021-06-19 19:52:05,860 - E:\miniconda\lib\asyncio\proactor_events.py[line:623] - DEBUG: Using proactor: IocpProactor
+2021-06-19 19:52:44,992 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:170] - INFO: capture stopped
+2021-06-19 20:12:13,377 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:239] - INFO: save current packets to data base, document name: log.log
+2021-06-19 20:12:22,753 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:239] - INFO: save current packets to data base, document name: 2021-06-19:20:12:17:580345
+2021-06-19 20:13:08,919 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:352] - INFO: app closed
+2021-06-19 20:13:11,977 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:24] - INFO: app opened
+2021-06-19 20:13:17,954 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:276] - INFO: restore packets from data base, document name: log.log
+2021-06-19 20:18:04,713 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:24] - INFO: app opened
+2021-06-19 20:18:29,595 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:276] - INFO: restore packets from data base, document name: log.log
+2021-06-19 20:23:34,434 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:24] - INFO: app opened
+2021-06-19 20:23:37,674 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:324] - INFO: set filter to: 
+2021-06-19 20:23:37,724 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:159] - INFO: capture started
+2021-06-19 20:23:37,726 - E:\miniconda\lib\asyncio\proactor_events.py[line:623] - DEBUG: Using proactor: IocpProactor
+2021-06-19 20:23:37,727 - E:\miniconda\lib\asyncio\proactor_events.py[line:623] - DEBUG: Using proactor: IocpProactor
+2021-06-19 20:26:41,594 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:324] - INFO: set filter to: 
+2021-06-19 20:26:41,658 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:159] - INFO: capture started
+2021-06-19 20:27:55,036 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:171] - INFO: capture stopped
+2021-06-19 20:30:52,673 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:324] - INFO: set filter to: 
+2021-06-19 20:30:52,729 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:159] - INFO: capture started
+2021-06-19 20:30:52,731 - E:\miniconda\lib\asyncio\proactor_events.py[line:623] - DEBUG: Using proactor: IocpProactor
+2021-06-19 20:30:52,732 - E:\miniconda\lib\asyncio\proactor_events.py[line:623] - DEBUG: Using proactor: IocpProactor
+2021-06-19 20:31:31,723 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:171] - INFO: capture stopped
+2021-06-19 21:19:42,971 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:324] - INFO: set filter to: 
+2021-06-19 21:19:43,022 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:159] - INFO: capture started
+2021-06-19 21:19:43,024 - E:\miniconda\lib\asyncio\proactor_events.py[line:623] - DEBUG: Using proactor: IocpProactor
+2021-06-19 21:19:43,025 - E:\miniconda\lib\asyncio\proactor_events.py[line:623] - DEBUG: Using proactor: IocpProactor
+2021-06-19 21:20:07,983 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:353] - INFO: app closed
+2021-06-19 21:20:13,473 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:24] - INFO: app opened
+2021-06-19 21:20:27,333 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:353] - INFO: app closed
+2021-06-19 21:21:06,303 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:24] - INFO: app opened
+2021-06-19 21:21:11,982 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:324] - INFO: set filter to: 
+2021-06-19 21:21:12,028 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:159] - INFO: capture started
+2021-06-19 21:21:12,029 - E:\miniconda\lib\asyncio\proactor_events.py[line:623] - DEBUG: Using proactor: IocpProactor
+2021-06-19 21:21:12,030 - E:\miniconda\lib\asyncio\proactor_events.py[line:623] - DEBUG: Using proactor: IocpProactor
+2021-06-19 21:22:03,970 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:324] - INFO: set filter to: 
+2021-06-19 21:22:04,023 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:159] - INFO: capture started
+2021-06-19 21:34:54,372 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:171] - INFO: capture stopped
+2021-06-19 21:40:36,081 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:24] - INFO: app opened
+2021-06-19 21:41:02,019 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:24] - INFO: app opened
+2021-06-19 21:41:08,820 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:278] - INFO: restore packets from data base, document name: 2021-06-19:20:12:17:580345
+2021-06-19 21:42:06,557 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:24] - INFO: app opened
+2021-06-19 21:42:10,938 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:281] - INFO: restore packets from data base, document name: 2021-06-19:20:12:17:580345
+2021-06-19 21:42:22,996 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:24] - INFO: app opened
+2021-06-19 21:42:24,581 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:159] - INFO: capture started
+2021-06-19 21:42:24,582 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:43] - DEBUG: current filter: http or bt-dht or bittorrent
+2021-06-19 21:42:24,582 - E:\miniconda\lib\asyncio\proactor_events.py[line:623] - DEBUG: Using proactor: IocpProactor
+2021-06-19 21:42:25,826 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:171] - INFO: capture stopped
+2021-06-19 21:42:29,941 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:281] - INFO: restore packets from data base, document name: 2021-06-19:20:12:17:580345
+2021-06-19 21:47:12,491 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:24] - INFO: app opened
+2021-06-19 21:47:16,493 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:281] - INFO: restore packets from data base, document name: 2021-06-19:20:12:17:580345
+2021-06-19 22:45:09,660 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:329] - INFO: set filter to: 
+2021-06-19 22:45:09,716 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:159] - INFO: capture started
+2021-06-19 22:45:09,717 - E:\miniconda\lib\asyncio\proactor_events.py[line:623] - DEBUG: Using proactor: IocpProactor
+2021-06-19 22:45:09,719 - E:\miniconda\lib\asyncio\proactor_events.py[line:623] - DEBUG: Using proactor: IocpProactor
+2021-06-19 22:45:16,326 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:329] - INFO: set filter to: 
+2021-06-19 22:45:16,370 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:159] - INFO: capture started
+2021-06-19 22:45:29,538 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:329] - INFO: set filter to: 
+2021-06-19 22:45:29,582 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:159] - INFO: capture started
+2021-06-19 22:45:37,539 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:329] - INFO: set filter to: 
+2021-06-19 22:45:37,584 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:159] - INFO: capture started
+2021-06-19 22:46:49,603 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:329] - INFO: set filter to: 
+2021-06-19 22:46:49,657 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:159] - INFO: capture started
+2021-06-19 22:47:06,010 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:329] - INFO: set filter to: 
+2021-06-19 22:47:06,054 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:159] - INFO: capture started
+2021-06-19 22:47:20,300 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:171] - INFO: capture stopped
+2021-06-19 22:48:19,739 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:329] - INFO: set filter to: bittorrent
+2021-06-19 22:48:19,789 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:159] - INFO: capture started
+2021-06-19 22:48:19,790 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:43] - DEBUG: current filter: bittorrent
+2021-06-19 22:48:19,790 - E:\miniconda\lib\asyncio\proactor_events.py[line:623] - DEBUG: Using proactor: IocpProactor
+2021-06-19 23:16:39,219 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:358] - INFO: app closed
+2021-06-20 01:49:33,040 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:25] - INFO: app opened
+2021-06-20 01:52:08,577 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:25] - INFO: app opened
+2021-06-20 01:52:26,404 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:25] - INFO: app opened
+2021-06-20 01:52:33,758 - E:\miniconda\lib\site-packages\urllib3\connectionpool.py[line:226] - DEBUG: Starting new HTTP connection (1): 127.0.0.1:10809
+2021-06-20 01:52:34,153 - E:\miniconda\lib\site-packages\urllib3\connectionpool.py[line:433] - DEBUG: http://127.0.0.1:10809 "GET http://39.105.175.67:8000/getBlackList HTTP/1.1" 200 58
+2021-06-20 01:52:41,102 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:403] - INFO: app closed
+2021-06-20 01:53:04,292 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:25] - INFO: app opened
+2021-06-20 01:53:20,908 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:25] - INFO: app opened
+2021-06-20 01:53:40,806 - E:\miniconda\lib\site-packages\urllib3\connectionpool.py[line:226] - DEBUG: Starting new HTTP connection (1): 127.0.0.1:10809
+2021-06-20 01:53:41,158 - E:\miniconda\lib\site-packages\urllib3\connectionpool.py[line:433] - DEBUG: http://127.0.0.1:10809 "GET http://39.105.175.67:8000/getBlackList HTTP/1.1" 200 58
+2021-06-20 01:53:55,455 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:404] - INFO: app closed
+2021-06-20 02:16:52,371 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:26] - INFO: app opened
+2021-06-20 02:16:59,290 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:412] - INFO: app closed
+2021-06-20 02:17:55,329 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:26] - INFO: app opened
+2021-06-20 02:20:10,746 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:26] - INFO: app opened
+2021-06-20 02:20:31,314 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:410] - INFO: app closed
+2021-06-20 02:23:19,756 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:26] - INFO: app opened
+2021-06-20 02:25:24,238 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:26] - INFO: app opened
+2021-06-20 02:25:52,269 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:26] - INFO: app opened
+2021-06-20 02:27:09,599 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:26] - INFO: app opened
+2021-06-20 02:27:49,664 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:26] - INFO: app opened
+2021-06-20 02:28:03,861 - E:\miniconda\lib\site-packages\urllib3\connectionpool.py[line:226] - DEBUG: Starting new HTTP connection (1): 127.0.0.1:10809
+2021-06-20 02:28:41,403 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:26] - INFO: app opened
+2021-06-20 02:28:44,682 - E:\miniconda\lib\site-packages\urllib3\connectionpool.py[line:226] - DEBUG: Starting new HTTP connection (1): 127.0.0.1:10809
+2021-06-20 02:29:20,673 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:26] - INFO: app opened
+2021-06-20 02:29:25,860 - E:\miniconda\lib\site-packages\urllib3\connectionpool.py[line:226] - DEBUG: Starting new HTTP connection (1): 127.0.0.1:10809
+2021-06-20 02:29:41,896 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:26] - INFO: app opened
+2021-06-20 02:29:46,355 - E:\miniconda\lib\site-packages\urllib3\connectionpool.py[line:226] - DEBUG: Starting new HTTP connection (1): 127.0.0.1:10809
+2021-06-20 02:30:30,611 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:26] - INFO: app opened
+2021-06-20 02:31:10,953 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:26] - INFO: app opened
+2021-06-20 02:31:21,233 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:416] - INFO: app closed
+2021-06-20 02:33:03,334 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:26] - INFO: app opened
+2021-06-20 02:33:11,600 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:417] - INFO: app closed
+2021-06-20 02:34:10,097 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:26] - INFO: app opened
+2021-06-20 02:34:19,114 - E:\miniconda\lib\site-packages\urllib3\connectionpool.py[line:226] - DEBUG: Starting new HTTP connection (1): 127.0.0.1:10809
+2021-06-20 13:03:02,698 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:26] - INFO: app opened
+2021-06-20 13:03:08,054 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:163] - INFO: capture started
+2021-06-20 13:03:08,055 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:45] - DEBUG: current filter: http or bt-dht or bittorrent
+2021-06-20 13:03:08,055 - E:\miniconda\lib\asyncio\proactor_events.py[line:623] - DEBUG: Using proactor: IocpProactor
+2021-06-20 13:03:10,980 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:175] - INFO: capture stopped
+2021-06-20 13:03:14,048 - E:\miniconda\lib\site-packages\urllib3\connectionpool.py[line:226] - DEBUG: Starting new HTTP connection (1): 39.105.175.67:8000
+2021-06-20 13:03:14,116 - E:\miniconda\lib\site-packages\urllib3\connectionpool.py[line:433] - DEBUG: http://39.105.175.67:8000 "GET /getBlackList HTTP/1.1" 200 58
+2021-06-20 13:03:45,998 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:26] - INFO: app opened
+2021-06-20 13:03:49,294 - E:\miniconda\lib\site-packages\urllib3\connectionpool.py[line:226] - DEBUG: Starting new HTTP connection (1): 39.105.175.67:8000
+2021-06-20 13:03:49,362 - E:\miniconda\lib\site-packages\urllib3\connectionpool.py[line:433] - DEBUG: http://39.105.175.67:8000 "GET /getBlackList HTTP/1.1" 200 58
+2021-06-20 13:03:54,308 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:417] - INFO: app closed
+2021-06-20 13:12:05,074 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:27] - INFO: app opened
+2021-06-20 13:15:26,307 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:27] - INFO: app opened
+2021-06-20 13:17:45,830 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:424] - INFO: app closed
+2021-06-20 13:22:05,423 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:27] - INFO: app opened
+2021-06-20 13:22:49,604 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:27] - INFO: app opened
+2021-06-20 13:25:54,094 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:27] - INFO: app opened
+2021-06-20 13:26:17,819 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:27] - INFO: app opened
+2021-06-20 13:26:24,131 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:430] - INFO: app closed
+2021-06-20 13:29:16,000 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:27] - INFO: app opened
+2021-06-20 13:29:33,786 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:430] - INFO: app closed
+2021-06-20 13:31:03,484 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:27] - INFO: app opened
+2021-06-20 13:31:44,510 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:430] - INFO: app closed
+2021-06-20 13:39:45,770 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:27] - INFO: app opened
+2021-06-20 13:39:54,633 - E:\miniconda\lib\site-packages\urllib3\connectionpool.py[line:226] - DEBUG: Starting new HTTP connection (1): 39.105.175.67:8000
+2021-06-20 13:39:54,725 - E:\miniconda\lib\site-packages\urllib3\connectionpool.py[line:433] - DEBUG: http://39.105.175.67:8000 "GET /getBlackList HTTP/1.1" 200 58
+2021-06-20 13:40:54,555 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:27] - INFO: app opened
+2021-06-20 13:40:55,385 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:431] - INFO: app closed
+2021-06-20 13:40:58,989 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:431] - INFO: app closed
+2021-06-20 13:41:02,719 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:27] - INFO: app opened
+2021-06-20 13:41:09,412 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:431] - INFO: app closed
+2021-06-20 13:42:13,558 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:27] - INFO: app opened
+2021-06-20 13:42:19,157 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:431] - INFO: app closed
+2021-06-20 14:14:44,826 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:27] - INFO: app opened
+2021-06-20 14:15:15,104 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:431] - INFO: app closed
+2021-06-20 14:15:40,477 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:27] - INFO: app opened
+2021-06-20 14:15:47,429 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:431] - INFO: app closed
+2021-06-20 14:16:45,893 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:27] - INFO: app opened
+2021-06-20 14:16:57,384 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:431] - INFO: app closed
+2021-06-20 14:19:33,232 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:27] - INFO: app opened
+2021-06-20 14:19:43,927 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:432] - INFO: app closed
+2021-06-20 14:24:16,690 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:27] - INFO: app opened
+2021-06-20 14:24:21,797 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:432] - INFO: app closed
+2021-06-20 14:25:01,056 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:27] - INFO: app opened
+2021-06-20 14:25:05,680 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:432] - INFO: app closed
+2021-06-20 14:25:55,352 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:27] - INFO: app opened
+2021-06-20 14:26:01,870 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:432] - INFO: app closed
+2021-06-20 14:26:17,585 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:27] - INFO: app opened
+2021-06-20 14:26:23,750 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:432] - INFO: app closed
+2021-06-20 14:26:34,789 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:27] - INFO: app opened
+2021-06-20 14:26:40,102 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:432] - INFO: app closed
+2021-06-20 14:30:04,907 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:27] - INFO: app opened
+2021-06-20 14:30:13,177 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:432] - INFO: app closed
+2021-06-20 14:33:01,581 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:27] - INFO: app opened
+2021-06-20 14:33:09,374 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:433] - INFO: app closed
+2021-06-20 14:33:55,910 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:27] - INFO: app opened
+2021-06-20 14:34:11,624 - E:\miniconda\lib\site-packages\urllib3\connectionpool.py[line:226] - DEBUG: Starting new HTTP connection (1): 39.105.175.67:8000
+2021-06-20 14:34:11,691 - E:\miniconda\lib\site-packages\urllib3\connectionpool.py[line:433] - DEBUG: http://39.105.175.67:8000 "GET /getBlackList HTTP/1.1" 200 58
+2021-06-20 14:34:13,430 - D:/学习文件/信息内容安全/lab/BTCapture/BTCapture.py[line:433] - INFO: app closed
