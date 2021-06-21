@@ -89,7 +89,7 @@ def print_bittorrent_info(pkt: Packet, analyse: BittorrentAnalyse, l: list):
                     if hasattr(layer, 'piece_data'):
                         # print(l)
                         # if AC(strlist_tohexlist(l), str(layer.piece_data).replace(':', '')):
-                        if str(AC(strlist_tohexlist(l), str(layer.piece_data).replace(':', ''))):
+                        if AC(strlist_tohexlist(l), str(layer.piece_data).replace(':', '')):
                             logger.info('\n' + info + '\n')
                             logger.info('\nSensitive word(s) included!\n')
                             return info, True
