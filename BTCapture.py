@@ -20,6 +20,8 @@ from util.bittorrent import *
 from util.Log import getlogger
 from util.BlackList import BlackList
 import qbittorrentapi
+from util.gettrackerbytorrent import get_tracker
+from util.torrent2hash import torrent2hash
 
 client = pymongo.MongoClient('mongodb://localhost:27017')
 db = client["BTCapture"]
@@ -32,8 +34,23 @@ typedict = {-3: 'Bittorrent', -2: 'Continuation Data', -1: 'Handshake',
             0: 'Choke', 1: 'Unchoke', 2: 'Interested', 3: 'Not Interested',
             4: 'Have', 5: 'Bitfield', 6: 'Request', 7: 'Piece', 8: 'Cancel',
             9: 'Port', 13: 'Suggest Piece', 14: 'Have All', 15: 'Have None',
-            16: 'Reject Request', 17: 'Allowed Fast', 20: 'Extended'}
+            16: 'Reject Request', 17: 'Allow Fast', 20: 'Extended'}
+dict_trackerip2torrent = dict()
+dict_peer2ip = dict()
 
+def gettorrentsbypeer(ip, port):
+    peer = "%s:%s" % (ip, port)
+    if peer in dict_peer2ip.keys():
+        trackers = dict_peer2ip[peer]
+        result = set()
+        for tracker in trackers:
+            if tracker in dict_trackerip2torrent:
+                result = result.union(dict_trackerip2torrent[tracker])
+            else:
+                pass
+        return result
+    else:
+        return set()
 
 class Capture(QThread):
     signal = pyqtSignal(Packet)
@@ -216,11 +233,49 @@ class Window(QMainWindow):
                 pkt.send = False
                 pkt.recv = True
         if hasattr(pkt, "http"):
-            info = print_tracker_info(pkt, self.trackeranalyse)
+            result = print_tracker_info(pkt, self.trackeranalyse)
+            if result:
+                info = result['info']
+                if 'ip2pl' in result.keys():
+                    ip2pl = result['ip2pl']
+                    # print(ip2pl)
+                    trackerip = ip2pl[0]
+                    peerlist = ip2pl[1]
+                    for peer in peerlist:
+                        if peer in dict_peer2ip.keys():
+                            dict_peer2ip[peer].add(trackerip)
+                        else:
+                            dict_peer2ip[peer] = {trackerip}
+                    # print(dict_peer2ip)
+            else:
+                info = None
         if hasattr(pkt, "bt-dht"):
             info = print_dht_info(pkt, self.dhtanalyse)
         if hasattr(pkt, "bittorrent"):
-            info = print_bittorrent_info(pkt, self.bittorrentanalyse, self.bl.get_black_list())
+            info, result = print_bittorrent_info(pkt, self.bittorrentanalyse, self.bl.get_black_list())
+            if result:
+                # bclient.torrents_delete()
+                # pass
+                torrentlist = None
+                if hasattr(pkt, "ip"):
+                    if pkt.recv:
+                        torrentlist = gettorrentsbypeer(pkt.ip.src, pkt.tcp.srcport)
+                    else:
+                        pass
+                elif hasattr(pkt, "ipv6"):
+                    if pkt.recv:
+                        torrentlist = gettorrentsbypeer(pkt.ipv6.src, pkt.tcp.srcport)
+                    else:
+                        pass
+                if torrentlist:
+                    # torrents_info = bclient.torrents_info().data
+                    for torrent in torrentlist:
+                        # for t_info in torrents_info:
+                        #     if torrent == t_info.content_path:
+                        #         bclient.torrents_delete(torrent_hashes = t_info.hash, delete_files = True)
+                        bclient.torrents_delete(torrent_hashes=torrent, delete_files=True)
+                        logger.info('delete job: %s' % torrent)
+                        print('delete job: %s' % torrent)
         if hasattr(pkt, "ip"):
             if hasattr(pkt, "http") or hasattr(pkt, "bt-dht") or hasattr(pkt, "bittorrent"):
                 if info and info != "ICMP":
@@ -630,6 +685,17 @@ class Window(QMainWindow):
             self.stop()
             self.start()
             self.info("成功开始下载任务，开始重新捕获数据包")
+            l = get_tracker(file_path[0])
+            current_torrent_hashes = torrent2hash(file_path[0])
+            print("add job: %s" % current_torrent_hashes)
+            for i in l:
+                if i in dict_trackerip2torrent.keys():
+                    dict_trackerip2torrent[i].add(current_torrent_hashes)
+                else:
+                    newset = set()
+                    newset.add(current_torrent_hashes)
+                    dict_trackerip2torrent[i] = newset
+            # print(dict_trackerip2torrent)
         else:
             self.warn("未成功开始任务")
 
@@ -646,6 +712,7 @@ class Window(QMainWindow):
             QMessageBox.information(parent, title, msg)
 
     def closeEvent(self, event):
+        bclient.torrents_delete(torrent_hashes='all', delete_files=False)
         logger.info("app closed")
         event.accept()
 

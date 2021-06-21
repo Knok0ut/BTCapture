@@ -75,7 +75,7 @@ def print_tracker_info(pkt: Packet, analyse: TrackerAnalyse):
                 else:
                     analyse.response_ipport[(pkt.ipv6.src, pkt.tcp.srcport)] = 1
                 logger.info(logger_info + '\n')
-                return str(temp) + str(peerlist)
+                return {'info': str(temp) + str(peerlist), 'ip2pl': (str(pkt.ipv6.src), peerlist)}
 
             elif hasattr(pkt, 'ip') and pkt.ip.src in ip_dst:
                 # ip_dst.remove(pkt.ip.src)
@@ -120,7 +120,7 @@ def print_tracker_info(pkt: Packet, analyse: TrackerAnalyse):
                 else:
                     analyse.response_ipport[(pkt.ip.src, pkt.tcp.srcport)] = 1
                 logger.info(logger_info + '\n')
-                return str(temp) + str(peerlist)
+                return {'info': str(temp) + str(peerlist), 'ip2pl': (str(pkt.ip.src), peerlist)}
     else:
         if hasattr(pkt.http, 'request_uri') and ((
                 'announce' in pkt.http.request_uri or 'scrape' in pkt.http.request_uri)):
@@ -146,7 +146,7 @@ def print_tracker_info(pkt: Packet, analyse: TrackerAnalyse):
                 analyse.local_port[pkt.tcp.srcport] = 1
             analyse.type['Get'] += 1
             logger.info(logger_info + '\n')
-            return str(pkt.http.request_uri)
+            return {'info': str(pkt.http.request_uri)}
 
 
 # if __name__ == '__main__':

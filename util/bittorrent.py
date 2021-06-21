@@ -90,7 +90,9 @@ def print_bittorrent_info(pkt: Packet, analyse: BittorrentAnalyse, l: list):
                         # print(l)
                         # if AC(strlist_tohexlist(l), str(layer.piece_data).replace(':', '')):
                         if str(AC(strlist_tohexlist(l), str(layer.piece_data).replace(':', ''))):
+                            logger.info('\n' + info + '\n')
                             logger.info('\nSensitive word(s) included!\n')
+                            return info, True
                     else:
                         logger.info('\nMalformed Piece Packet\n')
                 if int(layer.msg_type) in analyse.type.keys():
@@ -114,7 +116,7 @@ def print_bittorrent_info(pkt: Packet, analyse: BittorrentAnalyse, l: list):
                         info += 'Bittorrent '
                         analyse.type[-3] += 1
     logger.info('\n' + info + '\n')
-    return info
+    return info, False
 
 
 
