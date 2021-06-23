@@ -28,22 +28,9 @@
     <rect>
      <x>10</x>
      <y>10</y>
-     <width>341</width>
+     <width>431</width>
      <height>21</height>
     </rect>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="search">
-   <property name="geometry">
-    <rect>
-     <x>360</x>
-     <y>10</y>
-     <width>93</width>
-     <height>28</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>查询</string>
    </property>
   </widget>
   <widget class="QPushButton" name="add">

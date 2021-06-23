@@ -122,7 +122,7 @@ def print_tracker_info(pkt: Packet, analyse: TrackerAnalyse):
                 logger.info(logger_info + '\n')
                 return {'info': str(temp) + str(peerlist), 'ip2pl': (str(pkt.ip.src), peerlist)}
     else:
-        if hasattr(pkt.http, 'request_uri') and ((
+        if hasattr(pkt.http, 'request_uri') and (('anounce' in pkt.http.request_uri or
                 'announce' in pkt.http.request_uri or 'scrape' in pkt.http.request_uri)):
             logger_info = '\nTracker:Http Get'
             if hasattr(pkt, 'ipv6'):
