@@ -17,11 +17,8 @@ class Ui_Dialog(object):
         self.listWidget.setGeometry(QtCore.QRect(10, 50, 661, 411))
         self.listWidget.setObjectName("listWidget")
         self.lineEdit = QtWidgets.QLineEdit(Dialog)
-        self.lineEdit.setGeometry(QtCore.QRect(10, 10, 341, 21))
+        self.lineEdit.setGeometry(QtCore.QRect(10, 10, 431, 21))
         self.lineEdit.setObjectName("lineEdit")
-        self.search = QtWidgets.QPushButton(Dialog)
-        self.search.setGeometry(QtCore.QRect(360, 10, 93, 28))
-        self.search.setObjectName("search")
         self.add = QtWidgets.QPushButton(Dialog)
         self.add.setGeometry(QtCore.QRect(460, 10, 93, 28))
         self.add.setObjectName("add")
@@ -35,6 +32,5 @@ class Ui_Dialog(object):
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
         Dialog.setWindowTitle(_translate("Dialog", "Dialog"))
-        self.search.setText(_translate("Dialog", "查询"))
         self.add.setText(_translate("Dialog", "添加"))
         self.refreshFromServer.setText(_translate("Dialog", "从服务器获取"))

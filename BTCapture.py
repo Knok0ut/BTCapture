@@ -37,6 +37,13 @@ typedict = {-3: 'Bittorrent', -2: 'Continuation Data', -1: 'Handshake',
             16: 'Reject Request', 17: 'Allow Fast', 20: 'Extended'}
 dict_trackerip2torrent = dict()
 dict_peer2ip = dict()
+trackeranalyse = None
+dhtanalyse = None
+bittorrentanalyse = None
+bl = BlackList()
+ip = gethostip()
+ipv6 = gethostipv6()
+
 
 def gettorrentsbypeer(ip, port):
     peer = "%s:%s" % (ip, port)
@@ -51,6 +58,7 @@ def gettorrentsbypeer(ip, port):
         return result
     else:
         return set()
+
 
 class Capture(QThread):
     signal = pyqtSignal(Packet)
@@ -85,6 +93,68 @@ class Capture(QThread):
         self.wait()
 
     def send_signal(self, pkt: Packet):
+        info = None
+        global trackeranalyse, dhtanalyse, bittorrentanalyse, bl
+        if hasattr(pkt, "ip"):
+            if str(pkt.ip.src) == ip:
+                pkt.send = True
+                pkt.recv = False
+            elif str(pkt.ip.dst) == ip:
+                pkt.send = False
+                pkt.recv = True
+        elif hasattr(pkt, "ipv6"):
+            if str(pkt.ipv6.src) in ipv6:
+                pkt.send = True
+                pkt.recv = False
+            elif str(pkt.ipv6.dst) in ipv6:
+                pkt.send = False
+                pkt.recv = True
+        if hasattr(pkt, "http"):
+            result = print_tracker_info(pkt, trackeranalyse)
+            if result:
+                info = result['info']
+                if 'ip2pl' in result.keys():
+                    ip2pl = result['ip2pl']
+                    # print(ip2pl)
+                    trackerip = ip2pl[0]
+                    peerlist = ip2pl[1]
+                    for peer in peerlist:
+                        if peer in dict_peer2ip.keys():
+                            dict_peer2ip[peer].add(trackerip)
+                        else:
+                            dict_peer2ip[peer] = {trackerip}
+                    # print(dict_peer2ip)
+            else:
+                info = None
+        if hasattr(pkt, "bt-dht"):
+            info = print_dht_info(pkt, dhtanalyse)
+        if hasattr(pkt, "bittorrent"):
+            info, result = print_bittorrent_info(pkt, bittorrentanalyse, bl.get_black_list())
+            if result:
+                # bclient.torrents_delete()
+                # pass
+                torrentlist = None
+                if hasattr(pkt, "ip"):
+                    if pkt.recv:
+                        torrentlist = gettorrentsbypeer(pkt.ip.src, pkt.tcp.srcport)
+                    else:
+                        pass
+                elif hasattr(pkt, "ipv6"):
+                    if pkt.recv:
+                        torrentlist = gettorrentsbypeer(pkt.ipv6.src, pkt.tcp.srcport)
+                    else:
+                        pass
+                if torrentlist:
+                    # torrents_info = bclient.torrents_info().data
+                    for torrent in torrentlist:
+                        # for t_info in torrents_info:
+                        #     if torrent == t_info.content_path:
+                        #         bclient.torrents_delete(torrent_hashes = t_info.hash, delete_files = True)
+                        bclient.torrents_delete(torrent_hashes=torrent, delete_files=True)
+                        logger.info('delete job: %s' % torrent)
+                        print('delete job: %s' % torrent)
+                    pkt.is_bad = True
+        pkt.info_msg = info
         # print("I'm not terminated")
         self.signal.emit(pkt)
 
@@ -95,10 +165,6 @@ class Capture(QThread):
 class Window(QMainWindow):
     def __init__(self):
         super(Window, self).__init__()
-        self.trackeranalyse = None
-        self.dhtanalyse = None
-        self.bittorrentanalyse = None
-        self.bl = BlackList()
         self.pkt_dict = dict()
         self.ui = MainWindow.Ui_MainWindow()
         self.ui.setupUi(self)
@@ -170,9 +236,10 @@ class Window(QMainWindow):
         self.tree.setHeaderHidden(True)
 
     def start(self):
-        self.trackeranalyse = TrackerAnalyse()
-        self.dhtanalyse = DHTAnalyse()
-        self.bittorrentanalyse = BittorrentAnalyse()
+        global trackeranalyse, dhtanalyse, bittorrentanalyse
+        trackeranalyse = TrackerAnalyse()
+        dhtanalyse = DHTAnalyse()
+        bittorrentanalyse = BittorrentAnalyse()
         self.clear_all_info()
         self.current_pkt = None
         if self.pkt_dict:
@@ -216,66 +283,14 @@ class Window(QMainWindow):
 
     def deal_with_pkt(self, pkt: Packet):
         self.pkt_dict[int(pkt.number)] = pkt
-        ip = gethostip()
-        ipv6 = gethostipv6()
-        if hasattr(pkt, "ip"):
-            if str(pkt.ip.src) == ip:
-                pkt.send = True
-                pkt.recv = False
-            elif str(pkt.ip.dst) == ip:
-                pkt.send = False
-                pkt.recv = True
-        elif hasattr(pkt, "ipv6"):
-            if str(pkt.ipv6.src) in ipv6:
-                pkt.send = True
-                pkt.recv = False
-            elif str(pkt.ipv6.dst) in ipv6:
-                pkt.send = False
-                pkt.recv = True
-        if hasattr(pkt, "http"):
-            result = print_tracker_info(pkt, self.trackeranalyse)
-            if result:
-                info = result['info']
-                if 'ip2pl' in result.keys():
-                    ip2pl = result['ip2pl']
-                    # print(ip2pl)
-                    trackerip = ip2pl[0]
-                    peerlist = ip2pl[1]
-                    for peer in peerlist:
-                        if peer in dict_peer2ip.keys():
-                            dict_peer2ip[peer].add(trackerip)
-                        else:
-                            dict_peer2ip[peer] = {trackerip}
-                    # print(dict_peer2ip)
-            else:
-                info = None
-        if hasattr(pkt, "bt-dht"):
-            info = print_dht_info(pkt, self.dhtanalyse)
-        if hasattr(pkt, "bittorrent"):
-            info, result = print_bittorrent_info(pkt, self.bittorrentanalyse, self.bl.get_black_list())
-            if result:
-                # bclient.torrents_delete()
-                # pass
-                torrentlist = None
-                if hasattr(pkt, "ip"):
-                    if pkt.recv:
-                        torrentlist = gettorrentsbypeer(pkt.ip.src, pkt.tcp.srcport)
-                    else:
-                        pass
-                elif hasattr(pkt, "ipv6"):
-                    if pkt.recv:
-                        torrentlist = gettorrentsbypeer(pkt.ipv6.src, pkt.tcp.srcport)
-                    else:
-                        pass
-                if torrentlist:
-                    # torrents_info = bclient.torrents_info().data
-                    for torrent in torrentlist:
-                        # for t_info in torrents_info:
-                        #     if torrent == t_info.content_path:
-                        #         bclient.torrents_delete(torrent_hashes = t_info.hash, delete_files = True)
-                        bclient.torrents_delete(torrent_hashes=torrent, delete_files=True)
-                        logger.info('delete job: %s' % torrent)
-                        print('delete job: %s' % torrent)
+        if hasattr(pkt, "is_bad"):
+            self.warn("检测到文件包含敏感词，停止任务并删除文件")
+            self.stop()
+            return
+        if hasattr(pkt, "info_msg") and pkt.info_msg is not None:
+            info = pkt.info_msg
+        else:
+            info = pkt.frame_info
         if hasattr(pkt, "ip"):
             if hasattr(pkt, "http") or hasattr(pkt, "bt-dht") or hasattr(pkt, "bittorrent"):
                 if info and info != "ICMP":
@@ -332,9 +347,6 @@ class Window(QMainWindow):
         logger.info(f"save current packets to data base, document name: {name}")
 
     def restore_from_db(self):
-        self.trackeranalyse = TrackerAnalyse()
-        self.dhtanalyse = DHTAnalyse()
-        self.bittorrentanalyse = BittorrentAnalyse()
         self.restore_dialog = QDialog()
         self.restore_dialog.ui = OpenDocumentDialog.Ui_Dialog()
         self.restore_dialog.ui.setupUi(self.restore_dialog)
@@ -350,6 +362,10 @@ class Window(QMainWindow):
         if self.is_running:
             self.stop()
         self.clear_all_info()
+        global trackeranalyse, dhtanalyse, bittorrentanalyse
+        trackeranalyse = TrackerAnalyse()
+        dhtanalyse = DHTAnalyse()
+        bittorrentanalyse = BittorrentAnalyse()
         name = self.restore_dialog.ui.listWidget.currentItem().text().strip()
         d = pickle.loads(fs.get(name).read())
         if not d:
@@ -373,7 +389,7 @@ class Window(QMainWindow):
         self.black_list_dialog.ui = BlackListDialog.Ui_Dialog()
         self.black_list_dialog.ui.setupUi(self.black_list_dialog)
         self.black_list_dialog.ui.add.clicked.connect(self._add_black_list)
-        self.black_list_dialog.ui.search.clicked.connect(self._search_black_list)
+        # self.black_list_dialog.ui.search.clicked.connect(self._search_black_list)
         self.black_list_dialog.ui.refreshFromServer.clicked.connect(self._refresh_black_list)
         self.black_list_dialog.ui.listWidget.setContextMenuPolicy(Qt.ContextMenuPolicy.CustomContextMenu)
         self.black_list_dialog.ui.listWidget.customContextMenuRequested[QPoint].connect(self._list_menu)
@@ -412,7 +428,8 @@ class Window(QMainWindow):
         text = self.black_list_dialog.ui.lineEdit.text()
         text = text.strip()
         if text != "":
-            self.bl.add(text)
+            global bl
+            bl.add(text)
             self._show_black_list()
         else:
             self.warn("输入框没有任何输入")
@@ -423,16 +440,19 @@ class Window(QMainWindow):
         # if index > -1:
         #     text = self.black_list_dialog.ui.listWidget.item(index).text()
         # self._del_black_list(text)
-        self.bl.remove(text)
+        global bl
+        bl.remove(text)
         self._show_black_list()
 
     def _refresh_black_list(self):
-        self.bl.refresh_from_server()
+        global bl
+        bl.refresh_from_server()
         self._show_black_list()
 
     def _show_black_list(self):
         self.black_list_dialog.ui.listWidget.clear()
-        ls = self.bl.get_black_list()
+        global bl
+        ls = bl.get_black_list()
         if ls:
             for item in ls:
                 self.black_list_dialog.ui.listWidget.addItem(QListWidgetItem(item))
@@ -457,10 +477,10 @@ class Window(QMainWindow):
         table.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
         table.horizontalHeader().setSectionResizeMode(0, QHeaderView.ResizeMode.Interactive)
         row_cnt = 0
-        for key in self.trackeranalyse.tracker_ipport.keys():
+        for key in trackeranalyse.tracker_ipport.keys():
             table.insertRow(row_cnt)
             table.setItem(row_cnt, 0, QTableWidgetItem("(%s,%s)" % (key[0], key[1])))
-            table.setItem(row_cnt, 1, QTableWidgetItem(str(self.trackeranalyse.tracker_ipport[key])))
+            table.setItem(row_cnt, 1, QTableWidgetItem(str(trackeranalyse.tracker_ipport[key])))
             row_cnt += 1
 
         table = self.trackerwindow.ui.localport
@@ -469,10 +489,10 @@ class Window(QMainWindow):
         table.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
         table.horizontalHeader().setSectionResizeMode(0, QHeaderView.ResizeMode.Interactive)
         row_cnt = 0
-        for key in self.trackeranalyse.local_port.keys():
+        for key in trackeranalyse.local_port.keys():
             table.insertRow(row_cnt)
             table.setItem(row_cnt, 0, QTableWidgetItem(str(key)))
-            table.setItem(row_cnt, 1, QTableWidgetItem(str(self.trackeranalyse.local_port[key])))
+            table.setItem(row_cnt, 1, QTableWidgetItem(str(trackeranalyse.local_port[key])))
             row_cnt += 1
 
         table = self.trackerwindow.ui.type_num
@@ -481,10 +501,10 @@ class Window(QMainWindow):
         table.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
         table.horizontalHeader().setSectionResizeMode(0, QHeaderView.ResizeMode.Interactive)
         row_cnt = 0
-        for key in self.trackeranalyse.type.keys():
+        for key in trackeranalyse.type.keys():
             table.insertRow(row_cnt)
             table.setItem(row_cnt, 0, QTableWidgetItem(str(key)))
-            table.setItem(row_cnt, 1, QTableWidgetItem(str(self.trackeranalyse.type[key])))
+            table.setItem(row_cnt, 1, QTableWidgetItem(str(trackeranalyse.type[key])))
             row_cnt += 1
 
         table = self.trackerwindow.ui.peers
@@ -493,7 +513,7 @@ class Window(QMainWindow):
         table.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
         table.horizontalHeader().setSectionResizeMode(0, QHeaderView.ResizeMode.Interactive)
         row_cnt = 0
-        for item in self.trackeranalyse.peers:
+        for item in trackeranalyse.peers:
             temp = item.split(":")
             table.insertRow(row_cnt)
             table.setItem(row_cnt, 0, QTableWidgetItem(str(temp[0])))
@@ -514,10 +534,10 @@ class Window(QMainWindow):
         table.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
         table.horizontalHeader().setSectionResizeMode(0, QHeaderView.ResizeMode.Interactive)
         row_cnt = 0
-        for key in self.dhtanalyse.requested_ipport:
+        for key in dhtanalyse.requested_ipport:
             table.insertRow(row_cnt)
             table.setItem(row_cnt, 0, QTableWidgetItem("(%s,%s)" % (key[0], key[1])))
-            table.setItem(row_cnt, 1, QTableWidgetItem(str(self.dhtanalyse.requested_ipport[key])))
+            table.setItem(row_cnt, 1, QTableWidgetItem(str(dhtanalyse.requested_ipport[key])))
             row_cnt += 1
 
         table = self.dhtwindow.ui.nodes
@@ -526,7 +546,7 @@ class Window(QMainWindow):
         table.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
         table.horizontalHeader().setSectionResizeMode(0, QHeaderView.ResizeMode.Interactive)
         row_cnt = 0
-        for item in self.dhtanalyse.nodes:
+        for item in dhtanalyse.nodes:
             table.insertRow(row_cnt)
             table.setItem(row_cnt, 0, QTableWidgetItem(str(item[0])))
             table.setItem(row_cnt, 1, QTableWidgetItem(str(item[1])))
@@ -539,7 +559,7 @@ class Window(QMainWindow):
         table.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
         table.horizontalHeader().setSectionResizeMode(0, QHeaderView.ResizeMode.Interactive)
         row_cnt = 0
-        for item in self.dhtanalyse.peers:
+        for item in dhtanalyse.peers:
             table.insertRow(row_cnt)
             table.setItem(row_cnt, 0, QTableWidgetItem(str(item[0])))
             table.setItem(row_cnt, 1, QTableWidgetItem(str(item[1])))
@@ -551,10 +571,10 @@ class Window(QMainWindow):
         table.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
         table.horizontalHeader().setSectionResizeMode(0, QHeaderView.ResizeMode.Interactive)
         row_cnt = 0
-        for key in self.dhtanalyse.type.keys():
+        for key in dhtanalyse.type.keys():
             table.insertRow(row_cnt)
             table.setItem(row_cnt, 0, QTableWidgetItem(str(key)))
-            table.setItem(row_cnt, 1, QTableWidgetItem(str(self.dhtanalyse.type[key])))
+            table.setItem(row_cnt, 1, QTableWidgetItem(str(dhtanalyse.type[key])))
             row_cnt += 1
 
         self.dhtwindow.showMaximized()
@@ -572,10 +592,10 @@ class Window(QMainWindow):
         table.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
         table.horizontalHeader().setSectionResizeMode(0, QHeaderView.ResizeMode.Interactive)
         row_cnt = 0
-        for key in self.bittorrentanalyse.localport.keys():
+        for key in bittorrentanalyse.localport.keys():
             table.insertRow(row_cnt)
             table.setItem(row_cnt, 0, QTableWidgetItem(str(key)))
-            table.setItem(row_cnt, 1, QTableWidgetItem(str(self.bittorrentanalyse.localport[key])))
+            table.setItem(row_cnt, 1, QTableWidgetItem(str(bittorrentanalyse.localport[key])))
             row_cnt += 1
 
         table = self.btwindow.ui.remote_ipport
@@ -584,10 +604,10 @@ class Window(QMainWindow):
         table.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
         table.horizontalHeader().setSectionResizeMode(0, QHeaderView.ResizeMode.Interactive)
         row_cnt = 0
-        for key in self.bittorrentanalyse.remote_ipport.keys():
+        for key in bittorrentanalyse.remote_ipport.keys():
             table.insertRow(row_cnt)
             table.setItem(row_cnt, 0, QTableWidgetItem("(%s,%s)" % (str(key[0]), str(key[1]))))
-            table.setItem(row_cnt, 1, QTableWidgetItem(str(self.bittorrentanalyse.remote_ipport[key])))
+            table.setItem(row_cnt, 1, QTableWidgetItem(str(bittorrentanalyse.remote_ipport[key])))
             row_cnt += 1
 
         table = self.btwindow.ui.up_down
@@ -597,10 +617,10 @@ class Window(QMainWindow):
         table.horizontalHeader().setSectionResizeMode(0, QHeaderView.ResizeMode.Interactive)
         table.insertRow(0)
         table.setItem(0, 0, QTableWidgetItem("up"))
-        table.setItem(0, 1, QTableWidgetItem(str(self.bittorrentanalyse.up)))
+        table.setItem(0, 1, QTableWidgetItem(str(bittorrentanalyse.up)))
         table.insertRow(1)
         table.setItem(1, 0, QTableWidgetItem("down"))
-        table.setItem(1, 1, QTableWidgetItem(str(self.bittorrentanalyse.down)))
+        table.setItem(1, 1, QTableWidgetItem(str(bittorrentanalyse.down)))
 
         table = self.btwindow.ui.type_num
         table.setSortingEnabled(True)
@@ -608,7 +628,7 @@ class Window(QMainWindow):
         table.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
         table.horizontalHeader().setSectionResizeMode(0, QHeaderView.ResizeMode.Interactive)
         row_cnt = 0
-        keys = self.bittorrentanalyse.type.keys()
+        keys = bittorrentanalyse.type.keys()
         keys = sorted(keys)
         for key in keys:
             table.insertRow(row_cnt)
@@ -617,7 +637,7 @@ class Window(QMainWindow):
                 table.setItem(row_cnt, 1, QTableWidgetItem(typedict[key]))
             else:
                 table.setItem(row_cnt, 1, QTableWidgetItem('Unknown'))
-            table.setItem(row_cnt, 2, QTableWidgetItem(str(self.bittorrentanalyse.type[key])))
+            table.setItem(row_cnt, 2, QTableWidgetItem(str(bittorrentanalyse.type[key])))
             row_cnt += 1
 
         self.btwindow.showMaximized()
@@ -642,6 +662,10 @@ class Window(QMainWindow):
         self.show_pkt_tree(pkt)
         if hasattr(pkt, "data") and hasattr(pkt.data, "data"):
             self.hex_view.generateView(bytes.fromhex(pkt.data.data))
+        elif hasattr(pkt, "bittorrent") and hasattr(pkt.bittorrent, "piece_data"):
+            # print(str(l.piece_data).replace(":", ""))
+            print(bytes.fromhex(str(pkt.bittorrent.piece_data).replace(":", "")))
+            self.hex_view.generateView(bytes.fromhex(str(pkt.bittorrent.piece_data).replace(":", "")))
         else:
             self.hex_view.generateView(b"")
 
@@ -654,7 +678,7 @@ class Window(QMainWindow):
             if l.layer_name == l.DATA_LAYER:
                 b = QTreeWidgetItem(self.tree)
                 b.setText(0, "DATA")
-                break
+                continue
             b = QTreeWidgetItem(self.tree)
             b.setText(0, l.layer_name)
             for field_line in l._get_all_field_lines():
