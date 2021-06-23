@@ -22,6 +22,7 @@ from util.BlackList import BlackList
 import qbittorrentapi
 from util.gettrackerbytorrent import get_tracker
 from util.torrent2hash import torrent2hash
+from urllib import parse
 
 client = pymongo.MongoClient('mongodb://localhost:27017')
 db = client["BTCapture"]
@@ -35,8 +36,9 @@ typedict = {-3: 'Bittorrent', -2: 'Continuation Data', -1: 'Handshake',
             4: 'Have', 5: 'Bitfield', 6: 'Request', 7: 'Piece', 8: 'Cancel',
             9: 'Port', 13: 'Suggest Piece', 14: 'Have All', 15: 'Have None',
             16: 'Reject Request', 17: 'Allow Fast', 20: 'Extended'}
-dict_trackerip2torrent = dict()
-dict_peer2ip = dict()
+dict_peer2infohash = dict()
+dict_tracker2infohash = dict()
+
 trackeranalyse = None
 dhtanalyse = None
 bittorrentanalyse = None
@@ -45,19 +47,19 @@ ip = gethostip()
 ipv6 = gethostipv6()
 
 
-def gettorrentsbypeer(ip, port):
-    peer = "%s:%s" % (ip, port)
-    if peer in dict_peer2ip.keys():
-        trackers = dict_peer2ip[peer]
-        result = set()
-        for tracker in trackers:
-            if tracker in dict_trackerip2torrent:
-                result = result.union(dict_trackerip2torrent[tracker])
-            else:
-                pass
-        return result
-    else:
-        return set()
+# def gettorrentsbypeer(ip, port):
+#     peer = "%s:%s" % (ip, port)
+#     if peer in dict_peer2ip.keys():
+#         trackers = dict_peer2ip[peer]
+#         result = set()
+#         for tracker in trackers:
+#             if tracker in dict_trackerip2torrent:
+#                 result = result.union(dict_trackerip2torrent[tracker])
+#             else:
+#                 pass
+#         return result
+#     else:
+#         return set()
 
 
 class Capture(QThread):
@@ -96,6 +98,7 @@ class Capture(QThread):
         info = None
         global trackeranalyse, dhtanalyse, bittorrentanalyse, bl
         if hasattr(pkt, "ip"):
+            ip_layer = pkt.ip
             if str(pkt.ip.src) == ip:
                 pkt.send = True
                 pkt.recv = False
@@ -103,6 +106,7 @@ class Capture(QThread):
                 pkt.send = False
                 pkt.recv = True
         elif hasattr(pkt, "ipv6"):
+            ip_layer = pkt.ipv6
             if str(pkt.ipv6.src) in ipv6:
                 pkt.send = True
                 pkt.recv = False
@@ -113,17 +117,26 @@ class Capture(QThread):
             result = print_tracker_info(pkt, trackeranalyse)
             if result:
                 info = result['info']
-                if 'ip2pl' in result.keys():
-                    ip2pl = result['ip2pl']
-                    # print(ip2pl)
-                    trackerip = ip2pl[0]
-                    peerlist = ip2pl[1]
+                if 'peerlist' in result.keys():
+                    peerlist = result['peerlist']
                     for peer in peerlist:
-                        if peer in dict_peer2ip.keys():
-                            dict_peer2ip[peer].add(trackerip)
-                        else:
-                            dict_peer2ip[peer] = {trackerip}
-                    # print(dict_peer2ip)
+                        dict_peer2infohash[peer] = dict_tracker2infohash[(ip_layer.src, pkt.tcp.srcport)]
+                    # print(dict_peer2infohash)
+                else:
+                    info_hash = parse.unquote_to_bytes(info.split('info_hash=')[1].split('&')[0]).hex()
+                    dict_tracker2infohash[(ip_layer.dst, pkt.tcp.dstport)] = info_hash
+                    # print(dict_tracker2infohash)
+                # if 'ip2pl' in result.keys():
+                #     ip2pl = result['ip2pl']
+                #     # print(ip2pl)
+                #     trackerip = ip2pl[0]
+                #     peerlist = ip2pl[1]
+                #     for peer in peerlist:
+                #         if peer in dict_peer2ip.keys():
+                #             dict_peer2ip[peer].add(trackerip)
+                #         else:
+                #             dict_peer2ip[peer] = {trackerip}
+                #     # print(dict_peer2ip)
             else:
                 info = None
         if hasattr(pkt, "bt-dht"):
@@ -133,27 +146,32 @@ class Capture(QThread):
             if result:
                 # bclient.torrents_delete()
                 # pass
-                torrentlist = None
-                if hasattr(pkt, "ip"):
-                    if pkt.recv:
-                        torrentlist = gettorrentsbypeer(pkt.ip.src, pkt.tcp.srcport)
-                    else:
-                        pass
-                elif hasattr(pkt, "ipv6"):
-                    if pkt.recv:
-                        torrentlist = gettorrentsbypeer(pkt.ipv6.src, pkt.tcp.srcport)
-                    else:
-                        pass
-                if torrentlist:
-                    # torrents_info = bclient.torrents_info().data
-                    for torrent in torrentlist:
-                        # for t_info in torrents_info:
-                        #     if torrent == t_info.content_path:
-                        #         bclient.torrents_delete(torrent_hashes = t_info.hash, delete_files = True)
-                        bclient.torrents_delete(torrent_hashes=torrent, delete_files=True)
-                        logger.info('delete job: %s' % torrent)
-                        print('delete job: %s' % torrent)
-                    pkt.is_bad = True
+                print("sensitive words included!")
+                current_infohash = dict_peer2infohash['%s:%s' % (ip_layer.src, pkt.tcp.srcport)]
+                bclient.torrents_delete(torrent_hashes=current_infohash, delete_files=True)
+                logger.info('delete job: %s' % current_infohash)
+                print('delete job: %s' % current_infohash)
+                # torrentlist = None
+                # if hasattr(pkt, "ip"):
+                #     if pkt.recv:
+                #         torrentlist = gettorrentsbypeer(pkt.ip.src, pkt.tcp.srcport)
+                #     else:
+                #         pass
+                # elif hasattr(pkt, "ipv6"):
+                #     if pkt.recv:
+                #         torrentlist = gettorrentsbypeer(pkt.ipv6.src, pkt.tcp.srcport)
+                #     else:
+                #         pass
+                # if torrentlist:
+                #     # torrents_info = bclient.torrents_info().data
+                #     for torrent in torrentlist:
+                #         # for t_info in torrents_info:
+                #         #     if torrent == t_info.content_path:
+                #         #         bclient.torrents_delete(torrent_hashes = t_info.hash, delete_files = True)
+                #         bclient.torrents_delete(torrent_hashes=torrent, delete_files=True)
+                #         logger.info('delete job: %s' % torrent)
+                #         print('delete job: %s' % torrent)
+                #     pkt.is_bad = True
         pkt.info_msg = info
         # print("I'm not terminated")
         self.signal.emit(pkt)
@@ -712,13 +730,13 @@ class Window(QMainWindow):
             l = get_tracker(file_path[0])
             current_torrent_hashes = torrent2hash(file_path[0])
             print("add job: %s" % current_torrent_hashes)
-            for i in l:
-                if i in dict_trackerip2torrent.keys():
-                    dict_trackerip2torrent[i].add(current_torrent_hashes)
-                else:
-                    newset = set()
-                    newset.add(current_torrent_hashes)
-                    dict_trackerip2torrent[i] = newset
+            # for i in l:
+            #     if i in dict_trackerip2torrent.keys():
+            #         dict_trackerip2torrent[i].add(current_torrent_hashes)
+            #     else:
+            #         newset = set()
+            #         newset.add(current_torrent_hashes)
+            #         dict_trackerip2torrent[i] = newset
             # print(dict_trackerip2torrent)
         else:
             self.warn("未成功开始任务")
